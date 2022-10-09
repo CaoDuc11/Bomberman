@@ -35,7 +35,7 @@ public class Game extends Application {
 
     private static final int BOMBRATE = 1;
     private static final int BOMBRADIUS = 1;
-    private static final double BOMBERSPEED = 4.0;//toc do bomber
+    private static final double BOMBERSPEED = 3.0;//toc do bomber
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
@@ -109,7 +109,6 @@ public class Game extends Application {
         Entity bomberman = new Bomber(1, 1, Sprite.player_right);
         Bomber.getControl(scene);
         entities.add(bomberman);
-        render();
     }
 
     public void createMap() {
