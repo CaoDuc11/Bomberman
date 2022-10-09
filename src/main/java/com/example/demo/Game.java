@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.entities.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -7,12 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import com.example.demo.entities.Bomber;
-import com.example.demo.entities.Entity;
-import com.example.demo.entities.Grass;
-import com.example.demo.entities.Wall;
 import com.example.demo.graphics.Sprite;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,8 @@ import java.util.List;
 
 public class Game extends Application {
 
-    public static final int WIDTH = 19;
-    public static final int HEIGHT = 15;
+    public static final int WIDTH = 31;
+    public static final int HEIGHT = 13;
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
@@ -113,17 +112,79 @@ public class Game extends Application {
     }
 
     public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall);
-                }
-                else {
-                    object = new Grass(i, j, Sprite.grass);
-                }
-                stillObjects.add(object);
+        List<String> str = new ArrayList<>();
+        try {
+            FileReader fr = new FileReader("D:\\CaoDuc11\\Bomberman\\src\\main\\resources\\levels\\Level1.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            String line = "";
+
+            while (true) {
+                line = br.readLine();
+                if (line == null) break;
+                str.add(line);
             }
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                Entity obj;
+                switch (str.get(i + 1).charAt(j)) {
+                    case '#':
+                        obj = new Wall(j, i, Sprite.wall);
+                        stillObjects.add(obj);
+                        break;
+                    case ' ':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        break;
+                    case '*':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        obj = new Brick(j, i, Sprite.brick);
+                        entities.add(obj);
+                        break;
+                    case 'p':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        obj = new Bomber(1, 1, Sprite.player_right);
+                        entities.add(obj);
+                        break;
+                    case 'x':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        obj = new Portal(j, i, Sprite.portal);
+                        stillObjects.add(obj);
+                        obj = new Brick(j, i, Sprite.brick);
+                        entities.add(obj);
+                        break;
+
+                       /*
+                       case '1':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        obj = new Balloon(j, i, Sprite.balloom_right1);
+                        entities.add(obj);
+                        break;
+                    case '2':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        obj = new Oneal(j, i, Sprite.oneal_right1);
+                        entities.add(obj);
+                        break;
+                    case 'f':
+                        obj = new Grass(j, i, Sprite.grass);
+                        stillObjects.add(obj);
+                        obj = new Flame_Item(j, i, Sprite.powerup_flames);
+                        entities.add(obj);
+                        obj = new Brick(j, i, Sprite.brick);
+                        entities.add(obj);
+
+                     */
+
+                }
+            }
+        }
+      } catch (Exception e){
+            System.out.println("Can't load file");
         }
     }
 
