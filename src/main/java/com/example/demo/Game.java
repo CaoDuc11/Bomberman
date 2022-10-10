@@ -35,6 +35,7 @@ public class Game extends Application {
     private List<Entity> stillObjects = new ArrayList<>();
 
 
+
     public static int SCALE = 3;
 
     public static final String TITLE = "BombermanGame";

@@ -16,7 +16,7 @@ public class TileCanBeDestroy extends Entity {
 
     protected int _timeDisappear = 20;
 
-    protected Sprite _sprite = Sprite.grass;
+    protected Image _sprite = Sprite.grass.getFxImage();
 
     protected boolean _removed = false;
 
@@ -42,7 +42,7 @@ public class TileCanBeDestroy extends Entity {
         _destroyed = true;
     }
 
-    public void addSprite(Sprite sprite){
+    public void addImage(Image sprite){
         _sprite=sprite;
     }
 
