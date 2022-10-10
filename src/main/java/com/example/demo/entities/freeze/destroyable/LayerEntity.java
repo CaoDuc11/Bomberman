@@ -17,12 +17,11 @@ public class LayerEntity extends Entity {
        for(int i=0; i < entity.length; i++){
            _entity.add(entity[i]);
 
-           /*if(i > 1) {
-               if(entity[i] instanceof TileCanBeDestroy)
-                   //((TileCanBeDestroy)entity[i]).addSprite(entity[i-1].getSprite());
-           }*/
+           //if(i > 1) {
+             //  if(entity[i] instanceof TileCanBeDestroy)
+                   //((TileCanBeDestroy)entity[i]).addSprite(entity[i-1].getImg());
+           }
        }
-    }
 
     public Entity getTopEntity(){
          return _entity.getLast();

@@ -6,6 +6,9 @@ import com.example.demo.entities.freeze.destroyable.Brick;
 import com.example.demo.entities.freeze.Grass;
 import com.example.demo.entities.freeze.Portal;
 import com.example.demo.entities.freeze.Wall;
+import com.example.demo.entities.freeze.items.BoomItem;
+import com.example.demo.entities.freeze.items.FlameItem;
+import com.example.demo.entities.freeze.items.SpeedItem;
 import javafx.animation.AnimationTimer;;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -168,7 +171,45 @@ public class Game extends Application {
                             obj = new Brick(j, i, Sprite.brick.getFxImage());
                             entities.add(obj);
                             break;
+                            /*
+                              case '1' :
+                            obj = new Grass(j, i, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj = new Balloon(j ,i, Sprite.balloom_right1);
+                            entities.add(obj);
+                            break;
+                        case '2' :
+                            obj = new Grass(j, i, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj = new Oneal(j, i, Sprite.oneal_right1);
+                            entities.add(obj);
+                            break;
 
+                             */
+                        case 'f' :
+                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(obj);
+                            obj = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
+                            entities.add(obj);
+                           // obj = new Brick(j, i, Sprite.brick);
+                            //entities.add(obj);
+                            break;
+                        case 'b' :
+                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(obj);
+                            obj = new BoomItem(j, i, Sprite.powerup_bombs.getFxImage());
+                            entities.add(obj);
+                            // obj = new Brick(j, i, Sprite.brick);
+                            //entities.add(obj);
+                            break;
+                        case 's' :
+                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(obj);
+                            obj = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            entities.add(obj);
+                            // obj = new Brick(j, i, Sprite.brick);
+                            //entities.add(obj);
+                            break;
                     }
                 }
             }
