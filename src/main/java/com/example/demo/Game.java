@@ -1,7 +1,12 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
-import javafx.animation.AnimationTimer;
+import com.example.demo.entities.animated.Character.Bomber;
+import com.example.demo.entities.freeze.destroyable.Brick;
+import com.example.demo.entities.freeze.Grass;
+import com.example.demo.entities.freeze.Portal;
+import com.example.demo.entities.freeze.Wall;
+import javafx.animation.AnimationTimer;;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,11 +16,10 @@ import javafx.stage.Stage;
 import com.example.demo.graphics.Sprite;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 
 public class Game extends Application {
@@ -34,7 +38,7 @@ public class Game extends Application {
 
     private static final int BOMBRATE = 1;
     private static final int BOMBRADIUS = 1;
-    private static final double BOMBERSPEED = 3.0;//toc do bomber
+    private static final double BOMBERSPEED = 1.0;//toc do bomber
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
@@ -76,7 +80,7 @@ public class Game extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws FileNotFoundException {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -89,28 +93,43 @@ public class Game extends Application {
         Scene scene = new Scene(root);
 
 
-
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
 
+        createMap();
+
+        Entity bomberman = new Bomber(1, 1, Sprite.player_right);
+
+        entities.add(bomberman);
         AnimationTimer timer = new AnimationTimer() {
+            long lastTick = 0;
             @Override
             public void handle(long l) {
-                render();
-                update();
+                if (lastTick == 0) {
+                    lastTick = l;
+                    Bomber.getControl(scene);
+                    render();
+                    update();
+                    return;
+                }
+
+                if (l - lastTick > 1000000000 / 1000) {
+                    lastTick = l;
+                    Bomber.getControl(scene);
+                    render();
+                    update();
+                    return;
+                }
+
             }
         };
         timer.start();
 
-        createMap();
 
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right);
-        Bomber.getControl(scene);
-        entities.add(bomberman);
     }
 
-    public void createMap() {
+    public void createMap() throws FileNotFoundException {
         List<String> str = new ArrayList<>();
         try {
             FileReader fr = new FileReader("D:\\CaoDuc11\\Bomberman\\src\\main\\resources\\levels\\Level1.txt");
@@ -123,66 +142,37 @@ public class Game extends Application {
                 if (line == null) break;
                 str.add(line);
             }
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                Entity obj;
-                switch (str.get(i + 1).charAt(j)) {
-                    case '#':
-                        obj = new Wall(j, i, Sprite.wall);
-                        stillObjects.add(obj);
-                        break;
-                    case ' ':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        break;
-                    case '*':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        obj = new Brick(j, i, Sprite.brick);
-                        entities.add(obj);
-                        break;
-                    case 'p':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        obj = new Bomber(1, 1, Sprite.player_right);
-                        entities.add(obj);
-                        break;
-                    case 'x':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        obj = new Portal(j, i, Sprite.portal);
-                        stillObjects.add(obj);
-                        obj = new Brick(j, i, Sprite.brick);
-                        entities.add(obj);
-                        break;
+            Entity obj;
+            for (int i = 0; i < HEIGHT; i++) {
+                for (int j = 0; j < WIDTH; j++) {
+                    switch (str.get(i + 1).charAt(j)) {
+                        case '#':
+                            obj = new Wall(j, i, Sprite.wall.getFxImage());
+                            stillObjects.add(obj);
+                            break;
+                        case ' ':
+                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(obj);
+                            break;
+                        case '*':
+                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(obj);
+                            obj = new Brick(j, i, Sprite.brick.getFxImage());
+                            entities.add(obj);
+                            break;
+                        case 'x':
+                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(obj);
+                            obj = new Portal(j, i, Sprite.portal.getFxImage());
+                            stillObjects.add(obj);
+                            obj = new Brick(j, i, Sprite.brick.getFxImage());
+                            entities.add(obj);
+                            break;
 
-                       /*
-                       case '1':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        obj = new Balloon(j, i, Sprite.balloom_right1);
-                        entities.add(obj);
-                        break;
-                    case '2':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        obj = new Oneal(j, i, Sprite.oneal_right1);
-                        entities.add(obj);
-                        break;
-                    case 'f':
-                        obj = new Grass(j, i, Sprite.grass);
-                        stillObjects.add(obj);
-                        obj = new Flame_Item(j, i, Sprite.powerup_flames);
-                        entities.add(obj);
-                        obj = new Brick(j, i, Sprite.brick);
-                        entities.add(obj);
-
-                     */
-
+                    }
                 }
             }
-        }
-      } catch (Exception e){
+        } catch (Exception e){
             System.out.println("Can't load file");
         }
     }
@@ -197,4 +187,3 @@ public class Game extends Application {
         entities.forEach(g -> g.render(gc));
     }
 }
-

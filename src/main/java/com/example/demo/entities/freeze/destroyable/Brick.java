@@ -1,12 +1,12 @@
-package com.example.demo.entities;
+package com.example.demo.entities.freeze.destroyable;
 
-import com.example.demo.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
-public class Brick extends TileCanBeDestroy{
+public class Brick extends TileCanBeDestroy {
 
-    public Brick(int x, int y, Sprite sprite){
-        super(x,y,sprite);
+    public Brick(int x, int y, Image img){
+        super(x,y,img);
     }
 
     @Override

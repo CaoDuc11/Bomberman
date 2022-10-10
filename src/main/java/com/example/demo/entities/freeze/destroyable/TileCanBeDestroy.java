@@ -1,6 +1,10 @@
-package com.example.demo.entities;
+package com.example.demo.entities.freeze.destroyable;
 
+import com.example.demo.entities.Entity;
 import com.example.demo.graphics.Sprite;
+
+import javafx.scene.image.Image;
+import java.awt.*;
 
 public class TileCanBeDestroy extends Entity {
 
@@ -16,8 +20,8 @@ public class TileCanBeDestroy extends Entity {
 
     protected boolean _removed = false;
 
-    public TileCanBeDestroy(int x, int y, Sprite _sprite){
-        super(x,y,_sprite);
+    public TileCanBeDestroy(int x, int y, Image img){
+        super(x,y,img);
     }
 
     public void remove() {

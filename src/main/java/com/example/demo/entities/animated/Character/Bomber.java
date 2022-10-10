@@ -1,37 +1,36 @@
-package com.example.demo.entities;
+package com.example.demo.entities.animated.Character;
 
 import com.example.demo.Game;
+import com.example.demo.entities.animated.Character.Character;
 import com.example.demo.graphics.Sprite;
 import javafx.event.EventHandler;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 
-import javafx.event.Event;
 import javafx.scene.Scene;
 
 public class Bomber extends Character {
 
-    public static boolean up, down, right, left, space;
+    private static boolean up = false, down = false, right = false, left = false, space = false;
+    private Sprite sprite;
 
     public Bomber(int x, int y, Sprite sprite) {
-        super( x, y, sprite);
+        super(x, y, sprite.getFxImage());
+
     }
 
     public void move(double numX, double numY) {
 
         if(numX > 0) direction = 2;
+
+
         if(numX < 0) direction = 4;
         if(numY > 0) direction = 3;
         if(numY < 0) direction = 1;
+        ChooseSprite();
         if(numX != 0 || numY != 0){
             super.x += numX;
             super.y += numY;
         }
-
     }
 
     @Override
@@ -50,29 +49,30 @@ public class Bomber extends Character {
     }
 
     public void ChooseSprite() {
+        System.out.println(1);
         switch (direction) {
             case 1:
                 sprite = Sprite.player_up;
                 if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_up,Sprite.player_up_1, Sprite.player_up_2, animate, 10);
+                    sprite = Sprite.movingSprite(Sprite.player_up,Sprite.player_up_1, Sprite.player_up_2, animate, 20);
                 }
                 break;
             case 2:
                 sprite = Sprite.player_right;
                 if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_right,Sprite.player_right_1, Sprite.player_right_2, animate, 10);
+                    sprite = Sprite.movingSprite(Sprite.player_right,Sprite.player_right_1, Sprite.player_right_2, animate, 20);
                 }
                 break;
             case 3:
                 sprite = Sprite.player_down;
                 if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_down,Sprite.player_down_1, Sprite.player_down_2, animate, 10);
+                    sprite = Sprite.movingSprite(Sprite.player_down,Sprite.player_down_1, Sprite.player_down_2, animate, 20);
                 }
                 break;
             case 4:
                 sprite = Sprite.player_left;
                 if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_left,Sprite.player_left_1, Sprite.player_left_2, animate, 10);
+                    sprite = Sprite.movingSprite(Sprite.player_left,Sprite.player_left_1, Sprite.player_left_2, animate, 20);
                 }
                 break;
             default:
@@ -83,7 +83,6 @@ public class Bomber extends Character {
     @Override
     public void update() {
         animate();
-        ChooseSprite();
         calculateMove();
     }
 
@@ -97,6 +96,8 @@ public class Bomber extends Character {
         if(right) numX++;
         if(numX != 0 || numY != 0){
             move(numX * Game.getBomberSpeed() , numY * Game.getBomberSpeed());
+            ChooseSprite();
+            this.setImg(sprite.getFxImage());
             moving = true;
         }
         else { moving = false; }
@@ -106,57 +107,66 @@ public class Bomber extends Character {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+                System.out.println("Press " + keyEvent.getCode());
                 switch (keyEvent.getCode()) {
-                    case LEFT : {
+                    case LEFT :
                         left = true;
-                    }
-                    break;
-                    case RIGHT: {
+                        up = false;
+                        right = false;
+                        down = false;
+                        break;
 
+                    case RIGHT:
                         right = true;
-                    }
-                    break;
-                    case UP: {
+                        left = false;
+                        up = false;
+                        down = false;
+                        break;
+
+                    case UP:
                         up = true;
-                    }
-                    break;
-                    case DOWN: {
+                        left = false;
+                        right = false;
+                        down = false;
+                        break;
+
+                    case DOWN:
                         down = true;
-                    }
-                    break;
-                    case SPACE: {
+                        left = false;
+                        up = false;
+                        right = false;
+                        break;
+
+                    case SPACE:
                         space = true;
-                    }
-                    break;
+                        break;
+
                     default:
                         break;
                 }
+                System.out.println("******* " + keyEvent.getCode());
             }
         });
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+                System.out.println("Release " + keyEvent.getCode());
                 switch (keyEvent.getCode()) {
-                    case LEFT: {
+                    case LEFT:
                         left = false;
-                    }
-                    break;
-                    case RIGHT: {
+                        break;
+                    case RIGHT:
                         right = false;
-                    }
-                    break;
-                    case UP: {
+                        break;
+                    case UP:
                         up = false;
-                    }
-                    break;
-                    case DOWN: {
+                        break;
+                    case DOWN:
                         down = false;
-                    }
-                    break;
-                    case SPACE: {
+                        break;
+                    case SPACE:
                         space = false;
-                    }
-                    break;
+                        break;
                     default:
                         break;
                 }

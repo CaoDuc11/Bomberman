@@ -1,12 +1,13 @@
-package com.example.demo.entities;
+package com.example.demo.entities.animated.Character;
 
-import com.example.demo.graphics.Sprite;
+import com.example.demo.entities.animated.AnimatedEntity;
+import javafx.scene.image.Image;
 
 public abstract class Character extends AnimatedEntity {
-    public Character(int xUnit, int yUnit, Sprite sprite) {
-        super(xUnit, yUnit, sprite);
+    public Character(int xUnit, int yUnit, Image img) {
+        super(xUnit, yUnit, img);
     }
-    protected int direction = -1;
+    protected int direction = 0;
     protected boolean alive = true;
     protected boolean moving = false;
     public int timeAfter = 40;
