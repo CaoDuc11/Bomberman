@@ -16,12 +16,17 @@ public class TileCanBeDestroy extends Entity {
 
     protected int _timeDisappear = 20;
 
-    protected Image _sprite = Sprite.grass.getFxImage();
+    protected Image image = Sprite.grass.getFxImage();
 
     protected boolean _removed = false;
 
     public TileCanBeDestroy(int x, int y, Image img){
         super(x,y,img);
+    }
+
+    @Override
+    public boolean collide(Entity e) {
+        return false;
     }
 
     public void remove() {
@@ -42,8 +47,8 @@ public class TileCanBeDestroy extends Entity {
         _destroyed = true;
     }
 
-    public void addImage(Image sprite){
-        _sprite=sprite;
+    public void addImage(Image image){
+        this.image = image;
     }
 
     protected Sprite movingSpire(Sprite x1, Sprite x2, Sprite x3){

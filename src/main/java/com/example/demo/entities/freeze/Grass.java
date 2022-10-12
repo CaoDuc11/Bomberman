@@ -10,6 +10,11 @@ public class Grass extends Entity {
     }
 
     @Override
+    public boolean collide(Entity e) {
+        return true;
+    }
+
+    @Override
     public void update() {
 
     }

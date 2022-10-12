@@ -9,6 +9,11 @@ public class Item extends Entity {
     }
 
     @Override
+    public boolean collide(Entity e) {
+        return false;
+    }
+
+    @Override
     public void update() {
 
     }

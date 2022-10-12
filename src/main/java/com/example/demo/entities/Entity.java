@@ -44,5 +44,25 @@ public abstract class Entity {
         return img;
     }
 
+    public boolean collide(int x, int y) {
+        int left_a = this.x;
+        int right_a = this.x + Sprite.SCALED_SIZE;
+        int top_a = this.y;
+        int bottom_a = this.y + Sprite.SCALED_SIZE;
+
+        int left_b = x;
+        int right_b = x + Sprite.SCALED_SIZE;
+        int top_b = y;
+        int bottom_b = y + Sprite.SCALED_SIZE;
+
+        if (top_a == top_b && right_a == right_b && bottom_a == bottom_b)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public abstract boolean collide(Entity e);
+
     public abstract void update();
 }

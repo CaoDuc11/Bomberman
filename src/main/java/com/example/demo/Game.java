@@ -4,7 +4,6 @@ import com.example.demo.entities.*;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.freeze.destroyable.Brick;
 import com.example.demo.entities.freeze.Grass;
-import com.example.demo.entities.freeze.Portal;
 import com.example.demo.entities.freeze.Wall;
 import com.example.demo.entities.freeze.items.BoomItem;
 import com.example.demo.entities.freeze.items.FlameItem;
@@ -32,7 +31,7 @@ public class Game extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    private static List<Entity> stillObjects = new ArrayList<>();
 
 
 
@@ -52,6 +51,7 @@ public class Game extends Application {
     protected static int bombRate = BOMBRATE;
     protected static int bombRadius = BOMBRADIUS;
     protected static double bomberSpeed = BOMBERSPEED;
+
 
 
 
@@ -134,9 +134,10 @@ public class Game extends Application {
     }
 
     public void createMap() throws FileNotFoundException {
-        List<String> str = new ArrayList<>();
+         List<String> str = new ArrayList<>();
+
         try {
-            FileReader fr = new FileReader("D:\\CaoDuc11\\Bomberman\\src\\main\\resources\\levels\\Level1.txt");
+            FileReader fr = new FileReader("Bomberman/src/main/resources/levels/Level1.txt");
             BufferedReader br = new BufferedReader(fr);
 
             String line = "";
@@ -158,7 +159,7 @@ public class Game extends Application {
                             obj = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(obj);
                             break;
-                        case '*':
+                        /*case '*':
                             obj = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(obj);
                             obj = new Brick(j, i, Sprite.brick.getFxImage());
@@ -172,7 +173,6 @@ public class Game extends Application {
                             obj = new Brick(j, i, Sprite.brick.getFxImage());
                             entities.add(obj);
                             break;
-                            /*
                               case '1' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
@@ -186,14 +186,14 @@ public class Game extends Application {
                             entities.add(obj);
                             break;
 
-                             */
+
                         case 'f' :
                             obj = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(obj);
                             obj = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
                             entities.add(obj);
-                           // obj = new Brick(j, i, Sprite.brick);
-                            //entities.add(obj);
+                            obj = new Brick(j, i, Sprite.brick);
+                            entities.add(obj);
                             break;
                         case 'b' :
                             obj = new Grass(j, i, Sprite.grass.getFxImage());
@@ -208,9 +208,9 @@ public class Game extends Application {
                             stillObjects.add(obj);
                             obj = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
                             entities.add(obj);
-                            // obj = new Brick(j, i, Sprite.brick);
-                            //entities.add(obj);
-                            break;
+                             obj = new Brick(j, i, Sprite.brick);
+                            entities.add(obj);
+                            break;*/
                     }
                 }
             }
@@ -227,5 +227,9 @@ public class Game extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+    }
+
+    public static Entity getEntityAt(int x, int y) {
+        return stillObjects.get( x + y * WIDTH);
     }
 }

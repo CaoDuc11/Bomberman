@@ -10,6 +10,10 @@ public class Wall extends Entity {
     }
 
     @Override
+    public boolean collide(Entity e) {
+        return false;//khong cho di qua
+    }
+    @Override
     public void update() {
 
     }

@@ -14,4 +14,6 @@ public abstract class AnimatedEntity extends Entity {
     protected void animate() {
         if(animate < MAX_ANIMATE) animate++; else animate = 0;
     }
+
+
 }
