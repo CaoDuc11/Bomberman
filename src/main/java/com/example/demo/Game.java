@@ -28,6 +28,8 @@ public class Game extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
+
+    public static final int TITLE_SIZE = 16;
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
@@ -159,13 +161,15 @@ public class Game extends Application {
                             obj = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(obj);
                             break;
-                        /*case '*':
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(obj);
+                        case '*':
+//                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+//                            stillObjects.add(obj);
                             obj = new Brick(j, i, Sprite.brick.getFxImage());
                             entities.add(obj);
+                            stillObjects.add(obj);
                             break;
-                        case 'x':
+                        /*
+                            case 'x':
                             obj = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(obj);
                             obj = new Portal(j, i, Sprite.portal.getFxImage());
@@ -227,6 +231,7 @@ public class Game extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        Bomber._bombs.forEach(g -> g.render(gc));
     }
 
     public static Entity getEntityAt(int x, int y) {

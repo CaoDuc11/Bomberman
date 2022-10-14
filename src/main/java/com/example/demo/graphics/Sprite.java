@@ -1,6 +1,9 @@
 package com.example.demo.graphics;
 
+import com.example.demo.entities.animated.bomb.Bomb;
 import javafx.scene.image.*;
+
+import java.util.List;
 
 /**
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)

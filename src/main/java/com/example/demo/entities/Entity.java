@@ -18,7 +18,7 @@ public abstract class Entity {
 
     protected Image img;
 
-    protected boolean removed = false;
+    protected boolean remove = false;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity( int xUnit, int yUnit, Image img) {
@@ -32,8 +32,9 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
+    public void remove(){ remove = true;}
     public boolean isRemoved(){
-        return removed;
+        return remove;
     }
 
     public void setImg(Image img) {

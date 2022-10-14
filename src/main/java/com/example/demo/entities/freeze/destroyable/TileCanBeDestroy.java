@@ -18,8 +18,6 @@ public class TileCanBeDestroy extends Entity {
 
     protected Image image = Sprite.grass.getFxImage();
 
-    protected boolean _removed = false;
-
     public TileCanBeDestroy(int x, int y, Image img){
         super(x,y,img);
     }
@@ -29,9 +27,6 @@ public class TileCanBeDestroy extends Entity {
         return false;
     }
 
-    public void remove() {
-        _removed = true;
-    }
     @Override
     public void update() {
         if(_destroyed) {

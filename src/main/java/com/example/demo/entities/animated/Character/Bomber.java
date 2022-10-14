@@ -10,17 +10,19 @@ import javafx.scene.input.KeyEvent;
 
 import javafx.scene.Scene;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Bomber extends Character {
 
     private static boolean up = false, down = false, right = false, left = false, space = false;
+    private Sprite _sprite = Sprite.bomb;
+
     private Sprite sprite;
 
-    private List<Bomb> _bombs;
-
-
+    public static List<Bomb> _bombs = new ArrayList<>();
+    private int timeDelaySetBomb = -1;
     public Bomber(int x, int y, Sprite sprite) {
         super(x, y, sprite.getFxImage());
 
@@ -156,25 +158,32 @@ public class Bomber extends Character {
     public void update() {
         animate();
         calculateMove();
+        if(timeDelaySetBomb < -7500) timeDelaySetBomb = 0;
+        else timeDelaySetBomb--;
+        isSetBomb();
+//        System.out.println(_bombs.size());
     }
 
-    private void detectplaceBomb() {
-    }
+    private void isSetBomb(){
+        if(space && Game.getBombRate() > 0 && timeDelaySetBomb < 0){
+             int xT = x / 32;
+             int yT = y / 32;
+          setBomb(xT,yT);
+          Game.addBombRate(-1);
 
-    private void clearBombs() {
-        Iterator<Bomb> bs = _bombs.iterator();
-
-        Bomb b;
-        while (bs.hasNext()) {
-            b = bs.next();
-            if (b.isRemoved()) {
-                bs.remove();
-                Game.addBombRate(1);
-            }
+          timeDelaySetBomb = 20;
+          space=false;
         }
-
     }
 
+    public void addBomb(Bomb b){
+        _bombs.add(b);
+    }
+
+    public void setBomb(int x, int y){
+        Bomb b = new Bomb(x,y, _sprite);
+        addBomb(b);
+    }
     @Override
     protected void calculateMove() {
         int numX = 0;
@@ -250,9 +259,9 @@ public class Bomber extends Character {
                     case DOWN:
                         down = false;
                         break;
-                    case SPACE:
-                        space = false;
-                        break;
+//                    case SPACE:
+//                        space = false;
+//                        break;
                     default:
                         break;
                 }
