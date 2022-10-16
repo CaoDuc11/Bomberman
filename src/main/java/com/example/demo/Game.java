@@ -2,12 +2,10 @@ package com.example.demo;
 
 import com.example.demo.entities.*;
 import com.example.demo.entities.animated.Character.Bomber;
-import com.example.demo.entities.freeze.destroyable.Brick;
+import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.freeze.Grass;
 import com.example.demo.entities.freeze.Wall;
-import com.example.demo.entities.freeze.items.BoomItem;
-import com.example.demo.entities.freeze.items.FlameItem;
-import com.example.demo.entities.freeze.items.SpeedItem;
+import com.example.demo.entities.freeze.destroyable.Brick;
 import javafx.animation.AnimationTimer;;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -164,7 +162,7 @@ public class Game extends Application {
                         case '*':
 //                            obj = new Grass(j, i, Sprite.grass.getFxImage());
 //                            stillObjects.add(obj);
-                            obj = new Brick(j, i, Sprite.brick.getFxImage());
+                            obj = new Brick(j, i, Sprite.brick);
                             entities.add(obj);
                             stillObjects.add(obj);
                             break;
@@ -225,6 +223,7 @@ public class Game extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        Bomber._bombs.forEach(Bomb::update);
     }
 
     public void render() {
