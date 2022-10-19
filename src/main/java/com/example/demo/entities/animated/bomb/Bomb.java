@@ -45,7 +45,7 @@ public class Bomb extends Entity {
     }
     public void chooseSprite(){
         if(_timeToExplode <= 150){
-             sprite_ = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2,AnimatedEntity.animate,50);
+             sprite_ = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2,AnimatedEntity.animate,60);
         } if (_timeToExplode > 150 && _timeToExplode < 180){
             sprite_=Sprite.movingSprite(Sprite.bomb_exploded,Sprite.bomb_exploded1,Sprite.bomb_exploded2,AnimatedEntity.animate,120 );
         }
