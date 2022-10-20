@@ -2,60 +2,61 @@ package com.example.demo.entities.freeze.destroyable;
 
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.Entity;
+import com.example.demo.entities.animated.AnimatedEntity;
+import com.example.demo.entities.animated.bomb.Flame;
 import com.example.demo.graphics.Sprite;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class Brick extends Entity {
+public class Brick extends AnimatedEntity {
 
-    private final int MAX_ANIMATE = 7500;
-    private int _animate = 0;
-    protected boolean _destroyed = false;
     protected int _timeToDisapear = 20;
-    protected Sprite _belowSprite = Sprite.grass;
 
+
+    protected boolean _destroy = false;
+
+    protected Image below;
     public Brick(int x, int y, Sprite sprite) {
-        super(x, y, sprite.getFxImage());
+        super(x, y, sprite);
     }
 
 
     @Override
     public void update() {
-        if(_destroyed) {
-            if(_animate < MAX_ANIMATE) _animate++; else _animate = 0;
-            if(_timeToDisapear > 0)
+        if(_destroy){
+            animate();
+            if(_timeToDisapear > 0){
                 _timeToDisapear--;
-            else
+            }
+            else {
                 remove();
+            }
+            if(_timeToDisapear > 0) {
+                this.sprite = Sprite.movingSprite(Sprite.brick_exploded,Sprite.brick_exploded1,Sprite.brick_exploded2,animate,120);
+            }
+            this.setImg(sprite.getFxImage());
         }
+        else this.sprite = Sprite.brick;
     }
 
-    public void destroy() {
-        _destroyed = true;
+    public void addBelow(Image image){
+        below = image;
     }
 
     @Override
     public boolean collide(Entity e) {
         // TODO: xử lý khi va chạm với Flame
+        if(e instanceof Flame) destroy();
         return false;
     }
 
-    public void addBelowSprite(Sprite sprite) {
-        _belowSprite = sprite;
+    @Override
+    public void render(GraphicsContext gc){
+        gc.drawImage(below,x, y);
+        gc.drawImage(img, x, y);
     }
-
-    protected Sprite movingSprite(Sprite normal, Sprite x1, Sprite x2) {
-        int calc = _animate % 30;
-
-        if(calc < 10) {
-            return normal;
-        }
-
-        if(calc < 20) {
-            return x1;
-        }
-
-        return x2;
+    private void destroy() {
+        _destroy = true;
     }
-
 }
