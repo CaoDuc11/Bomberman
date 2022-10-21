@@ -6,6 +6,7 @@ import com.example.demo.entities.animated.Character.Character;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.graphics.Sprite;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
 import javafx.scene.Scene;
@@ -17,16 +18,15 @@ import java.util.List;
 public class Bomber extends Character {
 
     private static boolean up = false, down = false, right = false, left = false, space = false;
-    private Sprite _sprite = Sprite.bomb;
-
     private Sprite sprite;
 
     public static List<Bomb> _bombs = new ArrayList<>();
     private int timeDelaySetBomb = -1;
-    public Bomber(int x, int y, Sprite sprite) {
-        super(x, y, sprite.getFxImage());
 
+    public Bomber(int xUnit, int yUnit, Sprite sprite) {
+        super(xUnit, yUnit, sprite);
     }
+
 
     public void move(double numX, double numY) {
 
@@ -72,8 +72,6 @@ public class Bomber extends Character {
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
-            /*if (tileMap[xVal1][yVal - 1] == 1 || tileMap[xVal2][yVal - 1] == 1 ||
-                    tileMap[xVal1][yVal - 1] == 2 || tileMap[xVal2][yVal - 1] == 2) return true;*/
         }
         if (this.direction == 2) {
             double xA = (checkX - 8)/ Sprite.SCALED_SIZE;
@@ -107,13 +105,8 @@ public class Bomber extends Character {
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
-            /*if ((tileMap[xVal - 1][yVal1] == 1 || tileMap[xVal - 1][yVal2] == 1) ||
-                    (tileMap[xVal - 1][yVal1] == 2 || tileMap[xVal - 1][yVal2] == 2)) return true;*/
         }
-        /*Entity a = Game.getEntityAt( xt, yt);
-        if (!a.collide(this)) {
-            return false;
-        }*/
+
         return true;
 
     }
@@ -161,6 +154,7 @@ public class Bomber extends Character {
         if(timeDelaySetBomb < -7500) timeDelaySetBomb = 0;
         else timeDelaySetBomb--;
         isSetBomb();
+
 //        System.out.println(_bombs.size());
     }
 
@@ -168,7 +162,8 @@ public class Bomber extends Character {
         if(space && Game.getBombRate() > 0 && timeDelaySetBomb < 0){
              int xT = x / 32;
              int yT = y / 32;
-          setBomb(xT,yT);
+          Bomb b = new Bomb(xT, yT, Sprite.bomb);
+          addBomb(b);
           Game.addBombRate(-1);
 
           timeDelaySetBomb = 20;
@@ -179,10 +174,7 @@ public class Bomber extends Character {
     public void addBomb(Bomb b){
         _bombs.add(b);
     }
-
     public void setBomb(int x, int y){
-        Bomb b = new Bomb(x,y, _sprite);
-        addBomb(b);
     }
     @Override
     protected void calculateMove() {

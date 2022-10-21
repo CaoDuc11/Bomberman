@@ -8,16 +8,19 @@ import javafx.scene.image.Image;
 
 
 
-public class Bomb extends Entity {
-    protected double _timeToExplode = 120; //2 seconds - thoi gian phat no
+public class Bomb extends AnimatedEntity {
+    protected int _timeToExplode = 120; //2 seconds - thoi gian phat no
     public int _timeAfter = 20;// thoi gian de no
+    protected Sprite sprite;
     protected boolean _exploded = false;
 
-    private Sprite sprite_;
+
+    protected boolean _allowedToPassThru = true;
 
     public Bomb(int xUnit, int yUnit, Sprite sprite) {
         super(xUnit,yUnit,sprite.getFxImage());
     }
+
 
 
     @Override
@@ -27,10 +30,13 @@ public class Bomb extends Entity {
 
     @Override
     public void update() {
-        System.out.println(x);
-        if(_timeToExplode > 0)
+        animate();
+        chooseSprite();
+        if (_timeToExplode > 0){
             _timeToExplode--;
-        else {
+        }
+        else _timeAfter--;
+        /*else {
             if(!_exploded)
                 explode();
             else
@@ -40,23 +46,24 @@ public class Bomb extends Entity {
                 _timeAfter--;
             else
                 remove();
-        }
-        AnimatedEntity.animate();
+        }*/
     }
     public void chooseSprite(){
-        if(_timeToExplode <= 150){
-             sprite_ = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2,AnimatedEntity.animate,60);
-        } if (_timeToExplode > 150 && _timeToExplode < 180){
-            sprite_=Sprite.movingSprite(Sprite.bomb_exploded,Sprite.bomb_exploded1,Sprite.bomb_exploded2,AnimatedEntity.animate,120 );
+        System.out.println(1);
+        if (_timeToExplode > 0) {
+            sprite = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, animate, 50);
+        } else if (_timeAfter > 0) {
+            sprite = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, AnimatedEntity.animate, 120);
         }
+        this.setImg(sprite.getFxImage());
     }
-    @Override
+    /*@Override
     public void render(GraphicsContext gc) {
         chooseSprite();
         Image img_ = sprite_.getFxImage();
         gc.drawImage(img_, x, y);
     }
-
+*/
     public void updateFlames() {
 
     }
