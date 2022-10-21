@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
-import com.example.demo.entities.animated.Character.Balloon;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.freeze.Grass;
@@ -42,7 +41,7 @@ public class Game extends Application {
 
     private static final int BOMBRATE = 1;
     private static final int BOMBRADIUS = 1;
-    private static final double BOMBERSPEED = 2.0;//toc do bomber
+    private static final double BOMBERSPEED = 1.0;//toc do bomber
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
@@ -176,15 +175,12 @@ public class Game extends Application {
                             obj = new Brick(j, i, Sprite.brick.getFxImage());
                             entities.add(obj);
                             break;
-
-                         */
                               case '1' :
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Balloon(j ,i, Sprite.balloom_right1.getFxImage(),40);
+                            obj = new Balloon(j ,i, Sprite.balloom_right1);
                             entities.add(obj);
                             break;
-                            /*
                         case '2' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);

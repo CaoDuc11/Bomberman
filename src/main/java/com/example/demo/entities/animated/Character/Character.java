@@ -11,7 +11,7 @@ public abstract class Character extends AnimatedEntity {
     public int timeAfter = 40;
 
     public Character(int xUnit, int yUnit, Sprite sprite) {
-        super(xUnit, yUnit, sprite.getFxImage());
+        super(xUnit, yUnit, sprite);
     }
 
 

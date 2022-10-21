@@ -37,6 +37,7 @@ public class Bomber extends Character {
         if(numY > 0) direction = 3;
         if(numY < 0) direction = 1;
         ChooseSprite();
+        this.setImg(sprite.getFxImage());
         if(numX != 0 || numY != 0) {
             if(canMove(numX, 0)) {
                 this.x += numX;
@@ -46,12 +47,6 @@ public class Bomber extends Character {
             }
         }
     }
-
-    @Override
-    public void kill() {
-
-    }
-
     @Override
     protected void afterKill() {
 
@@ -63,7 +58,7 @@ public class Bomber extends Character {
         double checkY = this.y + y ;
 
         if (this.direction == 1) {
-            double xA = (checkX + 8)  / Sprite.SCALED_SIZE ;
+            double xA = (checkX + 3)  / Sprite.SCALED_SIZE ;
             double xB = (checkX + 8 +  Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE ;
             double yA = (checkY + 16 )/ Sprite.SCALED_SIZE;
             double yB = (checkY + 16 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
@@ -77,7 +72,7 @@ public class Bomber extends Character {
             double xA = (checkX - 8)/ Sprite.SCALED_SIZE;
             double xB = (checkX - 9 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA = (checkY + 5)/ Sprite.SCALED_SIZE;
-            double yB = (checkY + 12 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
+            double yB = (checkY + 14 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             Entity a = Game.getEntityAt((int) (xA + 1), (int) yA);
             Entity b = Game.getEntityAt((int) (xA + 1), (int) yB);
             if (!a.collide(this) || !b.collide(this)) {
@@ -85,7 +80,7 @@ public class Bomber extends Character {
             }
         }
         if (this.direction == 3) {
-            double xA = (checkX + 7)/ Sprite.SCALED_SIZE;
+            double xA = (checkX + 3)/ Sprite.SCALED_SIZE;
             double xB = (checkX + 7 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA =(checkY -1 ) / Sprite.SCALED_SIZE;
             double yB = (checkY - 1  + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
@@ -109,6 +104,11 @@ public class Bomber extends Character {
 
         return true;
 
+    }
+    @Override
+    public void kill() {
+        if (!this.alive) return;
+        this.alive = false;
     }
     public void ChooseSprite() {
         switch (direction) {
@@ -140,6 +140,7 @@ public class Bomber extends Character {
                 sprite = Sprite.player_right;
                 break;
         }
+
     }
 
     @Override
@@ -149,6 +150,7 @@ public class Bomber extends Character {
 
     @Override
     public void update() {
+        clearBomb();
         animate();
         calculateMove();
         if(timeDelaySetBomb < -7500) timeDelaySetBomb = 0;
@@ -158,11 +160,21 @@ public class Bomber extends Character {
 //        System.out.println(_bombs.size());
     }
 
+    private void clearBomb() {
+        int i = 0;
+        while(i < _bombs.size()){
+            if(_bombs.get(i).isRemoved()){
+                _bombs.remove(i);
+                Game.addBombRate(1);
+            }
+            else i++;
+        }
+    }
     private void isSetBomb(){
         if(space && Game.getBombRate() > 0 && timeDelaySetBomb < 0){
-             int xT = x / 32;
-             int yT = y / 32;
-          Bomb b = new Bomb(xT, yT, Sprite.bomb);
+             int xT = (int) ((x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE);
+             int yT = (int) ((y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE);
+          Bomb b = new Bomb(xT, yT, Sprite.bomb, (int) Game.getBombRadius());
           addBomb(b);
           Game.addBombRate(-1);
 
@@ -187,7 +199,6 @@ public class Bomber extends Character {
         if(numX != 0 || numY != 0){
             move(numX * Game.getBomberSpeed() , numY * Game.getBomberSpeed());
             ChooseSprite();
-            this.setImg(sprite.getFxImage());
             moving = true;
         }
         else { moving = false; }
