@@ -250,17 +250,17 @@ public class Game extends Application {
             }
         }
     }
-    public static Entity getEntity(int x, int y, Entity d) {
+    public static Entity getEntity(int xUnit, int yUnit, Entity d) {
         Entity e = null;
         if(!(d instanceof Flame) ){
             for (int i = 0; i < Bomber._bombs.size(); i++){
-                e = Bomber._bombs.get(i).flameAt(x, y);
+                e = Bomber._bombs.get(i).flameAt(xUnit, yUnit);
                 if(e != null) return e;
             }
         }
-        e = Bomber.bombAt(x, y);
+        e = Bomber.bombAt(xUnit, yUnit);
         if(e != null) return e;
-        e = getEntityAt(x /Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE);
+        e = getEntityAt(xUnit, yUnit);
         return e;
     }
 

@@ -74,8 +74,8 @@ public class Bomber extends Character {
             double xB = checkX +  6 + Sprite.SCALED_SIZE / 2;
             double yA = checkY + 14;
             double yB = checkY + 14 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) xA, (int) (Math.max(yA, yB) - Sprite.SCALED_SIZE), this);
-            Entity b = Game.getEntity((int) xB, (int) (Math.max(yA, yB) - Sprite.SCALED_SIZE), this);
+            Entity a = Game.getEntity((int) xA / Sprite.SCALED_SIZE, (int) (Math.max(yA, yB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
+            Entity b = Game.getEntity((int) xB / Sprite.SCALED_SIZE, (int) (Math.max(yA, yB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
@@ -85,8 +85,8 @@ public class Bomber extends Character {
             double xB = checkX - 9 + Sprite.SCALED_SIZE / 2;
             double yA = checkY + 5;
             double yB = checkY + 14 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) (xA + Sprite.SCALED_SIZE), (int) yA, this);
-            Entity b = Game.getEntity((int) (xA + Sprite.SCALED_SIZE), (int) yB, this);
+            Entity a = Game.getEntity((int) (xA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yA / Sprite.SCALED_SIZE, this);
+            Entity b = Game.getEntity((int) (xA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yB / Sprite.SCALED_SIZE, this);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
@@ -96,8 +96,8 @@ public class Bomber extends Character {
             double xB = checkX + 5 + Sprite.SCALED_SIZE / 2;
             double yA = checkY - 1;
             double yB = checkY - 1 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) xA, (int) (yA + Sprite.SCALED_SIZE), this);
-            Entity b = Game.getEntity((int) xB, (int) (yA + Sprite.SCALED_SIZE), this);
+            Entity a = Game.getEntity((int) xA / Sprite.SCALED_SIZE, (int) (yA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
+            Entity b = Game.getEntity((int) xB / Sprite.SCALED_SIZE, (int) (yA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
@@ -107,8 +107,8 @@ public class Bomber extends Character {
             double xB = checkX + 10 + Sprite.SCALED_SIZE / 2;
             double yA = checkY + 3;
             double yB = checkY + 12 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) (Math.max(xA, xB) - Sprite.SCALED_SIZE), (int) yA, this);
-            Entity b = Game.getEntity((int) (Math.max(xA, xB) - Sprite.SCALED_SIZE), (int) yB, this);
+            Entity a = Game.getEntity((int) (Math.max(xA, xB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yA / Sprite.SCALED_SIZE, this);
+            Entity b = Game.getEntity((int) (Math.max(xA, xB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yB / Sprite.SCALED_SIZE, this);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
@@ -201,9 +201,9 @@ public class Bomber extends Character {
         _bombs.add(b);
     }
 
-    public static Entity bombAt(int x, int y){
+    public static Entity bombAt(int xUnit, int yUnit){
         for(int i = 0; i < _bombs.size(); i++){
-            if(_bombs.get(i).getX() == x && _bombs.get(i).getY() == y){
+            if(_bombs.get(i).getxUnit() == xUnit && _bombs.get(i).getyUnit() == yUnit){
                 return _bombs.get(i);
             }
         }

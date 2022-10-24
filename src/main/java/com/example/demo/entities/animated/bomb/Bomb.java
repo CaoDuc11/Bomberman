@@ -3,6 +3,7 @@ package com.example.demo.entities.animated.bomb;
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.AnimatedEntity;
+import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -30,7 +31,18 @@ public class Bomb extends AnimatedEntity {
 
     @Override
     public boolean collide(Entity e) {
-        if(e instanceof Flame) time_explode();
+        if(e instanceof Bomber){
+            double diffX = Math.abs(e.getX() - this.getX());
+            double diffY = Math.abs(e.getY() - this.getY());
+            if(diffY >= Sprite.SCALED_SIZE || diffX >= Sprite.SCALED_SIZE) {
+                _allowedToPassThru = false;
+            }
+            return _allowedToPassThru;
+        }
+        if(e instanceof Flame){
+            time_explode();
+            return true;
+        }
         return false;
     }
 
@@ -58,10 +70,11 @@ public class Bomb extends AnimatedEntity {
     }
     public void exploded(){
         createFlame();
+        _exploded = true;
+        _allowedToPassThru = true;
         int i = 0;
         while (i < flames.size()){
-            if(flames.get(i).getX() < 0 || flames.get(i).getY() < 0) flames.remove(i);
-            Entity e = Game.getEntity(flames.get(i).getX(), flames.get(i).getY(), flames.get(i));
+            Entity e = Game.getEntity(flames.get(i).getxUnit(), flames.get(i).getyUnit(), flames.get(i));
             boolean check = e.collide(flames.get(i));
             if(!check ){
                 flames.remove(i);
@@ -139,10 +152,10 @@ public class Bomb extends AnimatedEntity {
             }
         }
     }
-    public  Flame flameAt(int x, int y){
+    public  Flame flameAt(int xUnit, int yUnit){
         if(!_exploded) return null;
         for (int i = 0; i < this.flames.size(); i++){
-           if(flames.get(i).getX() == x && flames.get(i).getY() == y) return flames.get(i);
+           if(flames.get(i).getxUnit() == xUnit && flames.get(i).getyUnit() == yUnit) return flames.get(i);
         }
         return null;
     }
