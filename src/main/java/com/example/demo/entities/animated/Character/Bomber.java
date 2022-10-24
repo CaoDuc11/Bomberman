@@ -54,10 +54,10 @@ public class Bomber extends Character {
     }
     public int set(int n){
         int check = n / Sprite.SCALED_SIZE;
-        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 5 / 6){
+        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.8){
             return (check + 1) * Sprite.SCALED_SIZE;
         }
-        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE / 6){
+        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.2){
             return check * Sprite.SCALED_SIZE;
         }
 

@@ -30,6 +30,7 @@ public class Bomb extends AnimatedEntity {
 
     @Override
     public boolean collide(Entity e) {
+        if(e instanceof Flame) time_explode();
         return false;
     }
 
@@ -60,7 +61,7 @@ public class Bomb extends AnimatedEntity {
         int i = 0;
         while (i < flames.size()){
             if(flames.get(i).getX() < 0 || flames.get(i).getY() < 0) flames.remove(i);
-            Entity e = Game.getEntityAt(flames.get(i).getX() / Sprite.SCALED_SIZE, flames.get(i).getY() / Sprite.SCALED_SIZE);
+            Entity e = Game.getEntity(flames.get(i).getX(), flames.get(i).getY(), flames.get(i));
             boolean check = e.collide(flames.get(i));
             if(!check ){
                 flames.remove(i);
@@ -100,22 +101,52 @@ public class Bomb extends AnimatedEntity {
 
         if(this.radius > 1) {
             Flame f;
-            for(int i = this.radius - 1; i > 0; i--){
+            for(int i = 1; i < this.radius; i++){
                 f = new Flame(xUnit, yUnit - i, Sprite.explosion_vertical, 5);
                 flames.add(f);
+                Entity a = Game.getEntityAt(f.getX() / Sprite.SCALED_SIZE, f.getY() / Sprite.SCALED_SIZE);
+                if(!a.collide(f)){
+                    flames.remove(flameUp);
+                    break;
+                }
+            }
+            for(int i = 1; i < this.radius; i++){
                 f = new Flame(xUnit + i, yUnit, Sprite.explosion_horizontal, 6);
                 flames.add(f);
+                Entity a = Game.getEntityAt(f.getX() / Sprite.SCALED_SIZE, f.getY() / Sprite.SCALED_SIZE);
+                if(!a.collide(f)) {
+                    flames.remove(flameRight);
+                    break;
+                }
+            }
+            for(int i = 1; i < this.radius; i++){
                 f = new Flame(xUnit - i, yUnit, Sprite.explosion_horizontal, 6);
                 flames.add(f);
+                Entity a = Game.getEntityAt(f.getX() / Sprite.SCALED_SIZE, f.getY() / Sprite.SCALED_SIZE);
+                if(!a.collide(f)) {
+                    flames.remove(flameLeft);
+                    break;
+                }
+            }
+            for(int i = 1; i < this.radius; i++){
                 f = new Flame(xUnit, yUnit + i, Sprite.explosion_vertical, 5);
                 flames.add(f);
+                Entity a = Game.getEntityAt(f.getX() / Sprite.SCALED_SIZE, f.getY() / Sprite.SCALED_SIZE);
+                if(!a.collide(f)) {
+                    flames.remove(flameDown);
+                    break;
+                }
             }
         }
     }
     public  Flame flameAt(int x, int y){
+        if(!_exploded) return null;
         for (int i = 0; i < this.flames.size(); i++){
            if(flames.get(i).getX() == x && flames.get(i).getY() == y) return flames.get(i);
         }
         return null;
+    }
+    private void time_explode(){
+        _timeToExplode = 0;
     }
 }
