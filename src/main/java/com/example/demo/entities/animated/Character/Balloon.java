@@ -4,8 +4,8 @@ import com.example.demo.graphics.Sprite;
 import javafx.scene.image.Image;
 
 public class Balloon extends Enemy{
-    public Balloon(int x, int y, Image img,double speed){
-        super(x,y,img,speed);
+    public Balloon(int x, int y, Sprite sprite,double speed, int point){
+        super(x,y,sprite,speed,point);
     }
 
     @Override

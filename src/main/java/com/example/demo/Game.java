@@ -1,11 +1,17 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
+import com.example.demo.entities.animated.Character.Balloon;
 import com.example.demo.entities.animated.Character.Bomber;
+import com.example.demo.entities.animated.Character.Enemy;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.freeze.Grass;
 import com.example.demo.entities.freeze.Wall;
 import com.example.demo.entities.freeze.destroyable.Brick;
+import com.example.demo.entities.freeze.destroyable.LayerEntity;
+import com.example.demo.entities.freeze.items.BoomItem;
+import com.example.demo.entities.freeze.items.FlameItem;
+import com.example.demo.entities.freeze.items.SpeedItem;
 import javafx.animation.AnimationTimer;;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -41,7 +47,7 @@ public class Game extends Application {
 
     private static final int BOMBRATE = 1;
     private static final int BOMBRADIUS = 1;
-    private static final double BOMBERSPEED = 1.0;//toc do bomber
+    private static final double BOMBERSPEED = 2;//toc do bomber
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
@@ -75,11 +81,11 @@ public class Game extends Application {
         bomberSpeed += i;
     }
 
-    public static void addBombRadius(int i) {
+    public static void addBombRadius(double i) {
         bombRadius += i;
     }
 
-    public static void addBombRate(int i) {
+    public static void addBombRate(double i) {
         bombRate += i;
     }
 
@@ -152,17 +158,15 @@ public class Game extends Application {
                 for (int j = 0; j < WIDTH; j++) {
                     switch (str.get(i + 1).charAt(j)) {
                         case '#':
-                            obj = new Wall(j, i, Sprite.wall.getFxImage());
+                            obj = new Wall(j, i, Sprite.wall);
                             stillObjects.add(obj);
                             break;
                         case ' ':
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
                             break;
                         case '*':
-//                            obj = new Grass(j, i, Sprite.grass.getFxImage());
-//                            stillObjects.add(obj);
-                            obj = new Brick(j, i, Sprite.brick);
+                            obj = new LayerEntity(j,i,new Brick(j, i, Sprite.brick),new Grass(j, i, Sprite.grass));
                             entities.add(obj);
                             stillObjects.add(obj);
                             break;
@@ -175,44 +179,36 @@ public class Game extends Application {
                             obj = new Brick(j, i, Sprite.brick.getFxImage());
                             entities.add(obj);
                             break;
-                              case '1' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            */
+                        case '1' :
+                            obj = new Grass(j,i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Balloon(j ,i, Sprite.balloom_right1);
+                            obj = new Balloon(j,i,Sprite.balloom_right1,5,10);
                             entities.add(obj);
                             break;
-                        case '2' :
-                            obj = new Grass(j, i, Sprite.grass);
-                            stillObjects.add(obj);
-                            obj = new Oneal(j, i, Sprite.oneal_right1);
-                            entities.add(obj);
-                            break;
-
+//                        case '2' :
+//                            obj = new LayerEntity(j,i,new Brick(j, i, Sprite.brick),new (j,i,Sprite.balloom_right1,30));
+//                            stillObjects.add(obj);
+//                            entities.add(obj);
+//                            break;
 
                         case 'f' :
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            obj = new LayerEntity(j,i,new Brick(j, i, Sprite.brick),new FlameItem(j, i, Sprite.powerup_flames),new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
-                            obj = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
-                            entities.add(obj);
-                            obj = new Brick(j, i, Sprite.brick);
                             entities.add(obj);
                             break;
                         case 'b' :
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            obj = new LayerEntity(j,i,new Brick(j, i, Sprite.brick),new BoomItem(j, i, Sprite.powerup_bombs),new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
-                            obj = new BoomItem(j, i, Sprite.powerup_bombs.getFxImage());
                             entities.add(obj);
                             // obj = new Brick(j, i, Sprite.brick);
                             //entities.add(obj);
                             break;
                         case 's' :
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
+                            obj = new LayerEntity(j,i,new Brick(j, i, Sprite.brick),new SpeedItem(j, i, Sprite.powerup_speed),new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
-                            obj = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
                             entities.add(obj);
-                             obj = new Brick(j, i, Sprite.brick);
-                            entities.add(obj);
-                            break;*/
+                            break;
                     }
                 }
             }
@@ -230,7 +226,12 @@ public class Game extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
-        Bomber._bombs.forEach(g -> g.render(gc));
+        for(int i = 0; i<Bomber._bombs.size();i++){
+            Bomber._bombs.get(i).render(gc);
+            for(int j =0; j<Bomber._bombs.get(i).flames.size();j++){
+                Bomber._bombs.get(i).flames.get(j).render(gc);
+            }
+        }
     }
 
     public static Entity getEntityAt(int x, int y) {

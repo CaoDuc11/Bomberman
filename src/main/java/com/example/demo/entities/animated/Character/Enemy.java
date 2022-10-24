@@ -12,16 +12,24 @@ public abstract class Enemy extends Character{
 
     protected double steps;
 
-    protected final double MAX_STEPS = Game.TITLE_SIZE / 10;
+    protected int _points;
+
+    protected final double MAX_STEPS;
     protected double _speed;
 
     protected Sprite sprite;
 
-    protected final  double rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
+    protected final  double rest;
     public static Random random = new Random();
-    public Enemy(int x, int y, Image img,double speed){
-        super(x,y,img);
+
+    public boolean check,check1,check2,check3,check4;
+    public Enemy(int x, int y, Sprite sprite,double speed, int point){
+        super(x,y,sprite);
         _speed=speed;
+        _points=point;
+        MAX_STEPS = Game.TITLE_SIZE / _speed;
+        rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
+        steps = MAX_STEPS;
     }
     @Override
     public boolean collide(Entity e) {
@@ -65,9 +73,9 @@ public abstract class Enemy extends Character{
             steps = MAX_STEPS;
         }
         if(direction == 0) ye--;
-        if(direction == 2) ye++;
-        if(direction == 3) xe--;
-        if(direction == 1) xe++;
+        if(direction == 1) ye++;
+        if(direction == 2) xe--;
+        if(direction == 3) xe++;
         if(canMove(xe,ye)){
             steps -= 1+rest;
             move(xe*_speed, ye* _speed);
@@ -76,26 +84,50 @@ public abstract class Enemy extends Character{
             steps=0;
             moving=false;
         }
+//        if(x%32==0 && y%32==0){
+//             check =false; check1=false; check2=false; check3=false; check4=false;
+//            while (!canMove(x,y)){
+//                direction=Enemy.randomMove();
+//            }
+//            switch (direction){
+//                case 1:
+//                    check1=true;
+//                    break;
+//                case 2:
+//                    check2=true;
+//                    break;
+//                case 3:
+//                    check3=true;
+//                    break;
+//                case 4:
+//                    check4=true;
+//                    break;
+//            }
+//        }
+//        if(check1) y-=1;
+//        if(check2) y+=1;
+//        if(check3) x-=1;
+//        if(check4) x+=1;
     }
 
     @Override
     protected void move(double xe, double ye) {
-        if(xe > 0) direction = 2;
-
-
-        if(xe < 0) direction = 4;
-        if(ye > 0) direction = 3;
-        if(ye < 0) direction = 1;
-        chooseSprite();
-        if(xe != 0 || ye != 0) {
-            if(canMove(xe, 0)) {
+        if (xe > 0) direction = 1;
+        if (xe < 0) direction = 3;
+        if (ye > 0) direction = 2;
+        if (ye < 0) direction = 0;
+        if (xe != 0 || ye != 0) {
+            if (canMove(xe, 0)) {
                 this.x += xe;
             }
-            if(canMove(0, ye)) {
+            if (canMove(0, ye)) {
                 this.y += ye;
             }
         }
     }
+//    if(!alive) return;
+//    y+=ye;
+//    x+=xe;
 
     @Override
     public void kill() {
@@ -108,13 +140,12 @@ public abstract class Enemy extends Character{
 
     }
 
-    @Override
     protected boolean canMove(double x, double y) {
         double checkX = this.x + x ;
         double checkY = this.y + y ;
 
-        if (this.direction == 1) {
-            double xA = (checkX + 8)  / Sprite.SCALED_SIZE ;
+        if (this.direction == 0) {
+            double xA = (checkX + 3)  / Sprite.SCALED_SIZE ;
             double xB = (checkX + 8 +  Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE ;
             double yA = (checkY + 16 )/ Sprite.SCALED_SIZE;
             double yB = (checkY + 16 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
@@ -123,22 +154,20 @@ public abstract class Enemy extends Character{
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
-            /*if (tileMap[xVal1][yVal - 1] == 1 || tileMap[xVal2][yVal - 1] == 1 ||
-                    tileMap[xVal1][yVal - 1] == 2 || tileMap[xVal2][yVal - 1] == 2) return true;*/
         }
-        if (this.direction == 2) {
+        if (this.direction == 1) {
             double xA = (checkX - 8)/ Sprite.SCALED_SIZE;
             double xB = (checkX - 9 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA = (checkY + 5)/ Sprite.SCALED_SIZE;
-            double yB = (checkY + 12 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
+            double yB = (checkY + 14 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             Entity a = Game.getEntityAt((int) (xA + 1), (int) yA);
             Entity b = Game.getEntityAt((int) (xA + 1), (int) yB);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
         }
-        if (this.direction == 3) {
-            double xA = (checkX + 7)/ Sprite.SCALED_SIZE;
+        if (this.direction == 2) {
+            double xA = (checkX + 3)/ Sprite.SCALED_SIZE;
             double xB = (checkX + 7 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA =(checkY -1 ) / Sprite.SCALED_SIZE;
             double yB = (checkY - 1  + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
@@ -148,7 +177,7 @@ public abstract class Enemy extends Character{
                 return false;
             }
         }
-        if (this.direction == 4) {
+        if (this.direction == 3) {
             double xA = (checkX + 16) / Sprite.SCALED_SIZE;
             double xB = (checkX + 16+ Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA = (checkY + 3)/ Sprite.SCALED_SIZE;
@@ -158,14 +187,10 @@ public abstract class Enemy extends Character{
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
-            /*if ((tileMap[xVal - 1][yVal1] == 1 || tileMap[xVal - 1][yVal2] == 1) ||
-                    (tileMap[xVal - 1][yVal1] == 2 || tileMap[xVal - 1][yVal2] == 2)) return true;*/
         }
-        /*Entity a = Game.getEntityAt( xt, yt);
-        if (!a.collide(this)) {
-            return false;
-        }*/
+
         return true;
+
     }
     public abstract void chooseSprite();
 }
