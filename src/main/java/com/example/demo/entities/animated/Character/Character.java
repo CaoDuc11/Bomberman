@@ -5,7 +5,7 @@ import com.example.demo.graphics.Sprite;
 import javafx.scene.image.Image;
 
 public abstract class Character extends AnimatedEntity {
-    protected int direction = 0;
+    protected int direction = -1;
     protected boolean alive = true;
     protected boolean moving = false;
     public int timeAfter = 40;
@@ -24,6 +24,17 @@ public abstract class Character extends AnimatedEntity {
      */
     protected abstract void calculateMove();
 
+    protected int set(int n){
+        int check = n / Sprite.SCALED_SIZE;
+        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.8){
+            return (check + 1) * Sprite.SCALED_SIZE;
+        }
+        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.2){
+            return check * Sprite.SCALED_SIZE;
+        }
+
+        return n;
+    }
     protected abstract void move(double x, double y);
 
     /**
@@ -34,6 +45,7 @@ public abstract class Character extends AnimatedEntity {
     /**
      * Xử lý hiệu ứng bị tiêu diệt
      */
+
     protected abstract void afterKill();
 
     /**

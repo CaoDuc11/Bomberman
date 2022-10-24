@@ -6,7 +6,6 @@ import com.example.demo.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.util.Random;
 
 public abstract class Enemy extends Character{
 
@@ -20,14 +19,15 @@ public abstract class Enemy extends Character{
     protected Sprite sprite;
 
     protected final  double rest;
-    public static Random random = new Random();
+
+    protected EnemyMove enemyMove;
 
     public boolean check,check1,check2,check3,check4;
     public Enemy(int x, int y, Sprite sprite,double speed, int point){
         super(x,y,sprite);
         _speed=speed;
         _points=point;
-        MAX_STEPS = Game.TITLE_SIZE / _speed;
+        MAX_STEPS = Sprite.DEFAULT_SIZE / _speed;
         rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
         steps = MAX_STEPS;
     }
@@ -61,23 +61,19 @@ public abstract class Enemy extends Character{
         }
     }
 
-    public static int randomMove(){
-        return random.nextInt(4);
-    }
-
     @Override
     protected void calculateMove() {
         int xe=0; int ye=0;
         if(steps<=0) {
-            direction = Enemy.randomMove();
+            direction = enemyMove.move();
             steps = MAX_STEPS;
         }
-        if(direction == 0) ye--;
-        if(direction == 1) ye++;
-        if(direction == 2) xe--;
-        if(direction == 3) xe++;
+        if(direction == 1) ye--;
+        if(direction == 2) ye++;
+        if(direction == 3) xe--;
+        if(direction == 4) xe++;
         if(canMove(xe,ye)){
-            steps -= 1+rest;
+            steps -= 15+rest;
             move(xe*_speed, ye* _speed);
             moving=true;
         }else {
@@ -87,7 +83,7 @@ public abstract class Enemy extends Character{
 //        if(x%32==0 && y%32==0){
 //             check =false; check1=false; check2=false; check3=false; check4=false;
 //            while (!canMove(x,y)){
-//                direction=Enemy.randomMove();
+//                direction= enemyMove.move();
 //            }
 //            switch (direction){
 //                case 1:
@@ -111,18 +107,21 @@ public abstract class Enemy extends Character{
     }
 
     @Override
-    protected void move(double xe, double ye) {
-        if (xe > 0) direction = 1;
-        if (xe < 0) direction = 3;
-        if (ye > 0) direction = 2;
-        if (ye < 0) direction = 0;
-        if (xe != 0 || ye != 0) {
-            if (canMove(xe, 0)) {
-                this.x += xe;
-            }
-            if (canMove(0, ye)) {
-                this.y += ye;
-            }
+    protected void move(double numX, double numY) {
+        if (numX > 0) direction = 2;
+        if (numX < 0) direction = 4;
+        if (numY > 0) direction = 3;
+        if (numY < 0) direction = 1;
+//        ChooseSprite();
+        this.setImg(sprite.getFxImage());
+        if(numX != 0) this.y = set(this.y);
+        if (canMove(numX, 0)) {
+            this.x += numX;
+        }
+        if(numY != 0)  this.x = set(this.x);
+        if (canMove(0, numY)) {
+            this.y += numY;
+
         }
     }
 //    if(!alive) return;
@@ -144,7 +143,11 @@ public abstract class Enemy extends Character{
         double checkX = this.x + x ;
         double checkY = this.y + y ;
 
-        if (this.direction == 0) {
+//        double xA = (checkX)  / Sprite.SCALED_SIZE ;
+//        double xB = (checkX +  Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE ;
+//        double yA = (checkY)/ Sprite.SCALED_SIZE;
+//        double yB = (checkY + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
+        if (this.direction == 1) {
             double xA = (checkX + 3)  / Sprite.SCALED_SIZE ;
             double xB = (checkX + 8 +  Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE ;
             double yA = (checkY + 16 )/ Sprite.SCALED_SIZE;
@@ -155,7 +158,7 @@ public abstract class Enemy extends Character{
                 return false;
             }
         }
-        if (this.direction == 1) {
+        if (this.direction == 2) {
             double xA = (checkX - 8)/ Sprite.SCALED_SIZE;
             double xB = (checkX - 9 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA = (checkY + 5)/ Sprite.SCALED_SIZE;
@@ -166,7 +169,7 @@ public abstract class Enemy extends Character{
                 return false;
             }
         }
-        if (this.direction == 2) {
+        if (this.direction == 3) {
             double xA = (checkX + 3)/ Sprite.SCALED_SIZE;
             double xB = (checkX + 7 + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA =(checkY -1 ) / Sprite.SCALED_SIZE;
@@ -177,7 +180,7 @@ public abstract class Enemy extends Character{
                 return false;
             }
         }
-        if (this.direction == 3) {
+        if (this.direction == 4) {
             double xA = (checkX + 16) / Sprite.SCALED_SIZE;
             double xB = (checkX + 16+ Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
             double yA = (checkY + 3)/ Sprite.SCALED_SIZE;

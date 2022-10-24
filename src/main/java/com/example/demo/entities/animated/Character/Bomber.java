@@ -27,7 +27,7 @@ public class Bomber extends Character {
         super(xUnit, yUnit, sprite);
     }
 
-
+    @Override
     public void move(double numX, double numY) {
 
         if (numX > 0) direction = 2;
@@ -52,17 +52,7 @@ public class Bomber extends Character {
     protected void afterKill() {
 
     }
-    public int set(int n){
-        int check = n / Sprite.SCALED_SIZE;
-        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.8){
-            return (check + 1) * Sprite.SCALED_SIZE;
-        }
-        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.2){
-            return check * Sprite.SCALED_SIZE;
-        }
 
-        return n;
-    }
 
     @Override
     protected boolean canMove(double x, double y) {

@@ -1,7 +1,10 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
+import com.example.demo.entities.animated.Character.Balloon;
 import com.example.demo.entities.animated.Character.Bomber;
+import com.example.demo.entities.animated.Character.Character;
+import com.example.demo.entities.animated.Character.Oneal;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
 import com.example.demo.entities.freeze.Grass;
@@ -25,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -58,6 +62,8 @@ public class Game extends Application {
     protected static double bombRadius = BOMBRADIUS;
     protected static double bomberSpeed = BOMBERSPEED;
 
+    public static List<Character> _characters = new ArrayList<>();
+
 
 
 
@@ -87,6 +93,20 @@ public class Game extends Application {
 
     public static void addBombRate(double i) {
         bombRate += i;
+    }
+
+    public static Bomber getBomber() {
+        Iterator<Character> itr = _characters.iterator();
+
+        Character cur;
+        while(itr.hasNext()) {
+            cur = itr.next();
+
+            if(cur instanceof Bomber)
+                return (Bomber) cur;
+        }
+
+        return null;
     }
 
     @Override
@@ -185,6 +205,18 @@ public class Game extends Application {
                             entities.add(obj);
                             stillObjects.add(obj);
                             break;
+                        case '1':
+                            obj = new Grass(j, i, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj = new Balloon(j ,i, Sprite.balloom_right1,10,100);
+                            entities.add(obj);
+                            break;
+//                        case '2':
+//                            obj = new Grass(j, i, Sprite.grass);
+//                            stillObjects.add(obj);
+//                            obj = new Oneal(j ,i, Sprite.oneal_left1,5,100);
+//                            entities.add(obj);
+//                            break;
                         /*
                             case 'x':
                             obj = new Grass(j, i, Sprite.grass.getFxImage());

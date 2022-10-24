@@ -21,6 +21,8 @@ public abstract class Entity {
     protected int yUnit;
     protected Image img;
 
+    protected Sprite sprite;
+
     protected boolean remove = false;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
@@ -46,6 +48,14 @@ public abstract class Entity {
 
     public int getyUnit() {
         return yUnit;
+    }
+
+    public int getXTile() {
+        return (int)(x + sprite.SIZE / 2) /16;
+    }
+
+    public int getYTile() {
+        return (int)(y - sprite.SIZE / 2) / 16;
     }
 
     public void render(GraphicsContext gc) {
