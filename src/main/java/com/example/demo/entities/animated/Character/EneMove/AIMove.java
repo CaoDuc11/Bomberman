@@ -1,8 +1,11 @@
-package com.example.demo.entities.animated.Character;
+package com.example.demo.entities.animated.Character.EneMove;
+
+import com.example.demo.entities.animated.Character.Bomber;
+import com.example.demo.entities.animated.Character.Enemy.Enemy;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AIMove extends EnemyMove{
+public class AIMove extends EnemyMove {
     Bomber _bomber;
     Enemy _e;
 

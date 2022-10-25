@@ -25,7 +25,6 @@ public class Brick extends AnimatedEntity {
     @Override
     public void update() {
         if(_destroy){
-            animate();
             if(_timeToDisapear > 0){
                 _timeToDisapear--;
             }

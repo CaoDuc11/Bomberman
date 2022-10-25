@@ -30,12 +30,10 @@ public class Bomber extends Character {
     @Override
     public void move(double numX, double numY) {
 
-        if (numX > 0) direction = 2;
-        if (numX < 0) direction = 4;
-        if (numY > 0) direction = 3;
         if (numY < 0) direction = 1;
-        ChooseSprite();
-        this.setImg(sprite.getFxImage());
+        if (numX > 0) direction = 2;
+        if (numY > 0) direction = 3;
+        if (numX < 0) direction = 4;
         if(numX != 0) this.y = set(this.y);
         if (canMove(numX, 0)) {
             this.x += numX;
@@ -47,66 +45,63 @@ public class Bomber extends Character {
         }
 
     }
+    protected int set(int n){
+        int check = n / Sprite.SCALED_SIZE;
+        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.8){
+            return (check + 1) * Sprite.SCALED_SIZE;
+        }
+        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.2){
+            return check * Sprite.SCALED_SIZE;
+        }
+
+        return n;
+    }
 
     @Override
     protected void afterKill() {
 
     }
 
-
-    @Override
     protected boolean canMove(double x, double y) {
         double checkX = this.x + x;
         double checkY = this.y + y;
+        double xA = (checkX + 1)  / Sprite.SCALED_SIZE ;
+        double xB = (checkX  +  Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE ;
+        double yA = (checkY + 1 )/ Sprite.SCALED_SIZE;
+        double yB = (checkY + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
 
         if (this.direction == 1) {
-            double xA = checkX + 1;
-            double xB = checkX +  6 + Sprite.SCALED_SIZE / 2;
-            double yA = checkY + 14;
-            double yB = checkY + 14 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) xA / Sprite.SCALED_SIZE, (int) (Math.max(yA, yB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
-            Entity b = Game.getEntity((int) xB / Sprite.SCALED_SIZE, (int) (Math.max(yA, yB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
+            Entity a = Game.getEntityAt((int) xA, (int) yA);
+            Entity b = Game.getEntityAt((int) xB, (int) yA);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
         }
         if (this.direction == 2) {
-            double xA = checkX - 8;
-            double xB = checkX - 9 + Sprite.SCALED_SIZE / 2;
-            double yA = checkY + 5;
-            double yB = checkY + 14 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) (xA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yA / Sprite.SCALED_SIZE, this);
-            Entity b = Game.getEntity((int) (xA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yB / Sprite.SCALED_SIZE, this);
+            Entity a = Game.getEntityAt((int) xB, (int) yA);
+            Entity b = Game.getEntityAt((int) xB, (int) yB);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
         }
         if (this.direction == 3) {
-            double xA = checkX + 1;
-            double xB = checkX + 5 + Sprite.SCALED_SIZE / 2;
-            double yA = checkY - 1;
-            double yB = checkY - 1 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) xA / Sprite.SCALED_SIZE, (int) (yA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
-            Entity b = Game.getEntity((int) xB / Sprite.SCALED_SIZE, (int) (yA + Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, this);
+            Entity a = Game.getEntityAt((int) xA, (int) yB);
+            Entity b = Game.getEntityAt((int) xB, (int) yB);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
             }
         }
         if (this.direction == 4) {
-            double xA = checkX + 10;
-            double xB = checkX + 10 + Sprite.SCALED_SIZE / 2;
-            double yA = checkY + 3;
-            double yB = checkY + 12 + Sprite.SCALED_SIZE / 2;
-            Entity a = Game.getEntity((int) (Math.max(xA, xB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yA / Sprite.SCALED_SIZE, this);
-            Entity b = Game.getEntity((int) (Math.max(xA, xB) - Sprite.SCALED_SIZE) / Sprite.SCALED_SIZE, (int) yB / Sprite.SCALED_SIZE, this);
+            Entity a = Game.getEntityAt((int) xA, (int) yA);
+            Entity b = Game.getEntityAt((int) xA, (int) yB);
             if (!a.collide(this) || !b.collide(this)) {
                 return false;
-            }
-        }
-
+          }
+      }
         return true;
 
     }
+
 
     @Override
     public void kill() {
@@ -211,6 +206,7 @@ public class Bomber extends Character {
         if (numX != 0 || numY != 0) {
             move(numX * Game.getBomberSpeed(), numY * Game.getBomberSpeed());
             ChooseSprite();
+            this.setImg(sprite.getFxImage());
             moving = true;
         } else {
             moving = false;

@@ -1,9 +1,11 @@
-package com.example.demo.entities.animated.Character;
+package com.example.demo.entities.animated.Character.Enemy;
 
 import com.example.demo.Game;
+import com.example.demo.entities.animated.Character.EneMove.AIMove;
+import com.example.demo.entities.animated.Character.Enemy.Enemy;
 import com.example.demo.graphics.Sprite;
 
-public class Oneal extends Enemy{
+public class Oneal extends Enemy {
 
     public Oneal(int x, int y, Sprite sprite, double speed, int point){
         super(x,y,sprite,speed,point);

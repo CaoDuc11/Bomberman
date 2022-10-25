@@ -1,6 +1,7 @@
 package com.example.demo.entities.animated.Character;
 
 import com.example.demo.entities.animated.AnimatedEntity;
+import com.example.demo.entities.animated.Character.EneMove.NormalMove;
 import com.example.demo.graphics.Sprite;
 import javafx.scene.image.Image;
 
@@ -14,6 +15,14 @@ public abstract class Character extends AnimatedEntity {
         super(xUnit, yUnit, sprite);
     }
 
+    public void setxUnit() {
+        this.xUnit = this.x / Sprite.SCALED_SIZE;
+    }
+
+    public void setyUnit() {
+        this.yUnit = this.y / Sprite.SCALED_SIZE;
+    }
+
 
     @Override
     public abstract void update();
@@ -24,17 +33,7 @@ public abstract class Character extends AnimatedEntity {
      */
     protected abstract void calculateMove();
 
-    protected int set(int n){
-        int check = n / Sprite.SCALED_SIZE;
-        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.8){
-            return (check + 1) * Sprite.SCALED_SIZE;
-        }
-        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.2){
-            return check * Sprite.SCALED_SIZE;
-        }
 
-        return n;
-    }
     protected abstract void move(double x, double y);
 
     /**
@@ -54,5 +53,4 @@ public abstract class Character extends AnimatedEntity {
      * @param y
      * @return
      */
-    protected abstract boolean canMove(double x, double y);
 }

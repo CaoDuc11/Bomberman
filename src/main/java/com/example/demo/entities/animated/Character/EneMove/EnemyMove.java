@@ -1,4 +1,4 @@
-package com.example.demo.entities.animated.Character;
+package com.example.demo.entities.animated.Character.EneMove;
 
 import java.util.Random;
 
