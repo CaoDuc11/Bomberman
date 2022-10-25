@@ -1,10 +1,9 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
-import com.example.demo.entities.animated.Character.Balloon;
+import com.example.demo.entities.animated.Character.Enemy.Balloon;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Character;
-import com.example.demo.entities.animated.Character.Oneal;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
 import com.example.demo.entities.freeze.Grass;
@@ -23,7 +22,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import com.example.demo.graphics.Sprite;
 
-import javafx.scene.media.Media;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -187,28 +185,24 @@ public class Game extends Application {
                             break;
                         case '*':
                             obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new Grass(j, i, Sprite.grass));
-                            entities.add(obj);
                             stillObjects.add(obj);
                             break;
                         case 'b' :
                             obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new BoomItem(j, i, Sprite.powerup_bombs), new Grass(j, i, Sprite.grass));
-                            entities.add(obj);
                             stillObjects.add(obj);
                             break;
                         case 'f' :
                             obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new FlameItem(j, i, Sprite.powerup_flames), new Grass(j, i, Sprite.grass));
-                            entities.add(obj);
                             stillObjects.add(obj);
                             break;
                         case 's' :
                             obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new SpeedItem(j, i, Sprite.powerup_speed), new Grass(j, i, Sprite.grass));
-                            entities.add(obj);
                             stillObjects.add(obj);
                             break;
                         case '1':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Balloon(j ,i, Sprite.balloom_right1,10,100);
+                            obj = new Balloon(j ,i, Sprite.balloom_right1,2,100);
                             entities.add(obj);
                             break;
 //                        case '2':
@@ -266,6 +260,7 @@ public class Game extends Application {
     }
 
     public void update() {
+        stillObjects.forEach(Entity :: update);
         entities.forEach(Entity::update);
         Bomber._bombs.forEach(Bomb :: update);
     }
