@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="416.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MenuTest">
+   <children>
+      <ImageView fitHeight="416.0" fitWidth="992.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@MenuBackGround.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="403.0" layoutY="140.0" mnemonicParsing="false" onAction="#Test" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #b6e9ed;" text="Start" textFill="#c31a1ac9">
+         <font>
+            <Font name="Adler" size="25.0" />
+         </font></Button>
+      <Button layoutX="403.0" layoutY="270.0" mnemonicParsing="false" onAction="#Exit" prefHeight="38.0" prefWidth="174.0" style="-fx-background-color: #b6e9ed;" text="Exit" textFill="#c31a1a">
+         <font>
+            <Font name="Adler" size="25.0" />
+         </font></Button>
+      <Button layoutX="400.0" layoutY="205.0" mnemonicParsing="false" onAction="#Control" prefHeight="38.0" prefWidth="180.0" style="-fx-background-color: #b6e9ed;" text="Control" textFill="#c31a1a">
+         <font>
+            <Font name="Adler" size="25.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

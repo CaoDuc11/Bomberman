@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="416.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ControlScreen">
+   <children>
+      <ImageView fitHeight="416.0" fitWidth="992.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@MNBG.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="384.0" layoutY="220.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="164.0" text="Space">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <Button layoutX="127.0" layoutY="225.0" mnemonicParsing="false" text="↑" />
+      <Button layoutX="52.0" layoutY="271.0" mnemonicParsing="false" text="←" />
+      <Button layoutX="127.0" layoutY="271.0" mnemonicParsing="false" text="↓" />
+      <Button layoutX="204.0" layoutY="271.0" mnemonicParsing="false" text="→" />
+      <Button layoutX="303.0" layoutY="31.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="273.0" style="-fx-background-color: #f1a95d;" text="Game-Control" textFill="#274ec3">
+         <font>
+            <Font size="28.0" />
+         </font></Button>
+      <Label layoutX="191.0" layoutY="223.0" text="Up" textFill="#dd5d12">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="319.0" text="Left" textFill="#dd5d12">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="319.0" text="Down" textFill="#dd5d12">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="194.0" layoutY="319.0" text="Right" textFill="#dd5d12">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="350.0" layoutY="271.0" prefHeight="36.0" prefWidth="245.0" text="Press SPACE To Put Bomb" textFill="#dd5d12">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
