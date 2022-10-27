@@ -16,23 +16,26 @@ public class AILowMove extends EnemyMove {
     public int move() {
         int checkMove = 0;
         Bomber b =  Game.getBomber();
-        if(b.getxUnit() == _e.getxUnit()){
-            if( _e.getyUnit() - b.getyUnit() > 0 ){
-                checkMove = 1;
+        if(b != null){
+            if(b.getxUnit() == _e.getxUnit()){
+                if( _e.getyUnit() - b.getyUnit() > 0 ){
+                    checkMove = 1;
+                }
+                if( b.getyUnit() - _e.getyUnit() > 0 ){
+                    checkMove = 3;
+                }
             }
-            if( b.getyUnit() - _e.getyUnit() > 0 ){
-                checkMove = 3;
-            }
-        }
-        if(b.getyUnit() == _e.getyUnit()){
-            if(_e.getxUnit() - b.getxUnit() > 0 ){
-                checkMove = 4;
-            }
-            if(b.getxUnit() - _e.getxUnit() > 0 ){
-                checkMove = 2;
-            }
+            if(b.getyUnit() == _e.getyUnit()){
+                if(_e.getxUnit() - b.getxUnit() > 0 ){
+                    checkMove = 4;
+                }
+                if(b.getxUnit() - _e.getxUnit() > 0 ){
+                    checkMove = 2;
+                }
 
+            }
         }
+
         if(_e.canMove(checkMove) && checkMove != 0 ) return checkMove;
         return ThreadLocalRandom.current().nextInt(1,5);
     }

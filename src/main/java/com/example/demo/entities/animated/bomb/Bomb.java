@@ -34,7 +34,7 @@ public class Bomb extends AnimatedEntity {
         if(e instanceof Bomber){
             double diffX = Math.abs(e.getX() - this.getX());
             double diffY = Math.abs(e.getY() - this.getY());
-            if(diffY >= Sprite.SCALED_SIZE || diffX >= Sprite.SCALED_SIZE) {
+            if(diffY >= Sprite.SCALED_SIZE  || diffX >= Sprite.SCALED_SIZE) {
                 _allowedToPassThru = false;
             }
             return _allowedToPassThru;

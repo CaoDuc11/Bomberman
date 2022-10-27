@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Enemy.Balloon;
+import com.example.demo.entities.animated.Character.Enemy.Minvo;
 import com.example.demo.entities.animated.Character.Enemy.Oneal;
 import com.example.demo.entities.freeze.Grass;
 import com.example.demo.entities.freeze.Wall;
@@ -55,25 +56,18 @@ public class MenuTest extends Game {
 
         createMap();
         AnimationTimer timer = new AnimationTimer() {
-            long lastTick = 0;
             @Override
             public void handle(long l) {
-                if (lastTick == 0) {
-                    lastTick = l;
-                    Bomber.getControl(scene);
-                    render();
-                    update();
-                    return;
+                Bomber.getControl(scene);
+                render();
+                update();
+                for(int i = 0; i < entities.size(); i++){
+                    if(entities.get(i).isRemoved()) entities.remove(i);
                 }
-
-                if (l - lastTick > 1000000000 / 1000) {
-                    lastTick = l;
-                    Bomber.getControl(scene);
-                    render();
-                    update();
-                    return;
-                }
-
+                for (int i = 0; i < extraEntity.size(); i++){
+                    entities.add(extraEntity.get(i));
+                    extraEntity.remove(i);
+                };
             }
         };
         timer.start();
@@ -142,9 +136,16 @@ public class MenuTest extends Game {
                         case '2':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Oneal(j ,i, Sprite.oneal_left1,1,100);
+                            obj = new Oneal(j ,i, Sprite.oneal_left1,2,100);
                             entities.add(obj);
                             break;
+                        case '3':
+                            obj = new Grass(j, i, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj = new Minvo(j ,i, Sprite.oneal_left1,1,100);
+                            entities.add(obj);
+                            break;
+
                         /*
                             case 'x':
                             obj = new Grass(j, i, Sprite.grass.getFxImage());

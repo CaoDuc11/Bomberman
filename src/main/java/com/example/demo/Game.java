@@ -47,7 +47,7 @@ public class Game extends Application {
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
 
-
+    public static List<Entity> extraEntity = new ArrayList<>();
 
     public static int SCALE = 3;
 
@@ -65,11 +65,6 @@ public class Game extends Application {
     protected static double bombRate = BOMBRATE;
     protected static double bombRadius = BOMBRADIUS;
     protected static double bomberSpeed = BOMBERSPEED;
-
-    public static List<Character> _characters = new ArrayList<>();
-
-
-
 
     public static void main(String[] args) {
         Application.launch(Game.class);
@@ -279,9 +274,12 @@ public class Game extends Application {
     public static Entity getEntity(int xUnit, int yUnit, Entity d) {
         Entity e = null;
         if(!(d instanceof Bomber)){
-            if(getBomber().getxUnit() == xUnit && getBomber().getyUnit() == yUnit){
-                e = getBomber();
-                if(e != null) return e;
+            Bomber b = getBomber();
+            if(b != null){
+                if(b.getxUnit() == xUnit && b.getyUnit() == yUnit){
+                    e = getBomber();
+                    if(e != null) return e;
+                }
             }
         }
         if(!(d instanceof Flame) ){
