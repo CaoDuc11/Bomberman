@@ -99,20 +99,6 @@ public class Game extends Application {
         bombRate += i;
     }
 
-    public static Bomber getBomber() {
-        Iterator<Character> itr = _characters.iterator();
-
-        Character cur;
-        while(itr.hasNext()) {
-            cur = itr.next();
-
-            if(cur instanceof Bomber)
-                return (Bomber) cur;
-        }
-
-        return null;
-    }
-
 //    @Override
 //    public void start(Stage stage) throws FileNotFoundException {
 //        // Tao Canvas
@@ -292,27 +278,41 @@ public class Game extends Application {
     }
     public static Entity getEntity(int xUnit, int yUnit, Entity d) {
         Entity e = null;
-//        if(!(d instanceof Enemy)){
-//          for(int i=0;i<entities.size();i++){
-//              if (entities.get(i).getxUnit() == xUnit && entities.get(i).getyUnit() == yUnit){
-//                  e = entities.get(i);
-//                  if(e!=null) return e;
-//
-//              }
-//          }
-//        }
+        if(!(d instanceof Bomber)){
+            if(getBomber().getxUnit() == xUnit && getBomber().getyUnit() == yUnit){
+                e = getBomber();
+                if(e != null) return e;
+            }
+        }
         if(!(d instanceof Flame) ){
             for (int i = 0; i < Bomber._bombs.size(); i++){
                 e = Bomber._bombs.get(i).flameAt(xUnit, yUnit);
-                if(e != null) return e;
+
             }
         }
         e = Bomber.bombAt(xUnit, yUnit);
         if(e != null) return e;
+        if(!(d instanceof Enemy)){
+            e = getEnemy(xUnit, yUnit);
+            if(e != null) return e;
+        }
         e = getEntityAt(xUnit, yUnit);
         return e;
     }
 
+    public static Bomber getBomber(){
+        if(entities.get(0) instanceof Bomber)return (Bomber) entities.get(0);
+        return null;
+    }
+
+    public static Enemy getEnemy(int xUnit, int yUnit){
+        for(int i = 0; i < entities.size(); i++){
+            if(entities.get(i) instanceof Enemy){
+                if(entities.get(i).getxUnit() == xUnit && entities.get(i).getyUnit() == yUnit) return (Enemy) entities.get(i);
+            }
+        }
+        return null;
+    }
     public static Entity getEntityAt(int x, int y) {
         return stillObjects. get( x + y * WIDTH);
     }

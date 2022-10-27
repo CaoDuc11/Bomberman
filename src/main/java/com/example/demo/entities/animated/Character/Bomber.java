@@ -3,7 +3,10 @@ package com.example.demo.entities.animated.Character;
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Character;
+import com.example.demo.entities.animated.Character.Enemy.Enemy;
 import com.example.demo.entities.animated.bomb.Bomb;
+import com.example.demo.entities.animated.bomb.Flame;
+import com.example.demo.entities.freeze.destroyable.LayerEntity;
 import com.example.demo.graphics.Sprite;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -16,10 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Bomber extends Character {
-
     private static boolean up = false, down = false, right = false, left = false, space = false;
-    private Sprite sprite;
 
+    private Sprite sprite;
     public static List<Bomb> _bombs = new ArrayList<>();
     private int timeDelaySetBomb = -1;
 
@@ -44,17 +46,6 @@ public class Bomber extends Character {
 
         }
 
-    }
-    protected int set(int n){
-        int check = n / Sprite.SCALED_SIZE;
-        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.8){
-            return (check + 1) * Sprite.SCALED_SIZE;
-        }
-        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.2){
-            return check * Sprite.SCALED_SIZE;
-        }
-
-        return n;
     }
 
     @Override
@@ -110,40 +101,55 @@ public class Bomber extends Character {
     }
 
     public void ChooseSprite() {
-        switch (direction) {
-            case 1:
-                sprite = Sprite.player_up;
-                if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 20);
-                }
-                break;
-            case 2:
-                sprite = Sprite.player_right;
-                if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 20);
-                }
-                break;
-            case 3:
-                sprite = Sprite.player_down;
-                if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 20);
-                }
-                break;
-            case 4:
-                sprite = Sprite.player_left;
-                if (moving) {
-                    sprite = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 20);
-                }
-                break;
-            default:
-                sprite = Sprite.player_right;
-                break;
+        if(alive){
+            switch (direction) {
+                case 1:
+                    sprite = Sprite.player_up;
+                    if (moving) {
+                        sprite = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, animate, 20);
+                    }
+                    break;
+                case 2:
+                    sprite = Sprite.player_right;
+                    if (moving) {
+                        sprite = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, animate, 20);
+                    }
+                    break;
+                case 3:
+                    sprite = Sprite.player_down;
+                    if (moving) {
+                        sprite = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, animate, 20);
+                    }
+                    break;
+                case 4:
+                    sprite = Sprite.player_left;
+                    if (moving) {
+                        sprite = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, animate, 20);
+                    }
+                    break;
+                default:
+                    sprite = Sprite.player_right;
+                    break;
+            }
+        }
+        else{
+            if(timeAfter < 20) sprite = sprite = Sprite.movingSprite(Sprite.player_dead1,Sprite.player_dead2,Sprite.player_dead3,animate,120);
+
         }
 
     }
 
     @Override
     public boolean collide(Entity e) {
+        if(e instanceof Flame){
+            this.kill();
+            return true;
+        }
+        if(e instanceof Enemy) {
+            this.kill();
+            return true;
+        }
+        if(e instanceof LayerEntity) return e.collide(this);
         return false;
     }
 
@@ -151,12 +157,18 @@ public class Bomber extends Character {
     public void update() {
         clearBomb();
         animate();
-        calculateMove();
-        if (timeDelaySetBomb < -7500) timeDelaySetBomb = 0;
-        else timeDelaySetBomb--;
-        isSetBomb();
-
-//        System.out.println(_bombs.size());
+        if(!alive){
+            if(timeAfter > 0) timeAfter--;
+            //else remove();
+        }
+        else{
+            calculateMove();
+            if (timeDelaySetBomb < -7500) timeDelaySetBomb = 0;
+            else timeDelaySetBomb--;
+            isSetBomb();
+        }
+        ChooseSprite();
+        this.setImg(sprite.getFxImage());
     }
 
     private void clearBomb() {
@@ -205,8 +217,6 @@ public class Bomber extends Character {
         if (right) numX++;
         if (numX != 0 || numY != 0) {
             move(numX * Game.getBomberSpeed(), numY * Game.getBomberSpeed());
-            ChooseSprite();
-            this.setImg(sprite.getFxImage());
             moving = true;
         } else {
             moving = false;

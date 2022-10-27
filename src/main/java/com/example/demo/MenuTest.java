@@ -49,11 +49,11 @@ public class MenuTest extends Game {
         stage.setScene(scene);
         stage.show();
 
-        createMap();
-
         Entity bomberman = new Bomber(1, 1, Sprite.player_right);
 
         entities.add(bomberman);
+
+        createMap();
         AnimationTimer timer = new AnimationTimer() {
             long lastTick = 0;
             @Override

@@ -6,6 +6,7 @@ import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Character;
 import com.example.demo.entities.animated.Character.EneMove.EnemyMove;
 import com.example.demo.entities.animated.Character.EneMove.NormalMove;
+import com.example.demo.entities.animated.bomb.Flame;
 import com.example.demo.graphics.Sprite;
 
 
@@ -31,45 +32,52 @@ public abstract class Enemy extends Character {
 
     @Override
     public boolean collide(Entity e) {
-        if (e instanceof Bomber) {
-            ((Bomber) e).kill();
-            return false;
-        }
+        if(e instanceof Flame) this.kill();
+        if (e instanceof Bomber) ((Bomber) e).kill();
         return true;
     }
 
     @Override
     public void update() {
-        calculateMove();
-
+        animate();
+        if(!alive){
+           if(timeAfter > 0)timeAfter--;
+           else remove();
+        }
+        else{
+            calculateMove();
+        }
+        chooseSprite();
+        this.setImg(sprite.getFxImage());
     }
 
 
     @Override
     protected void calculateMove() {
-        if (this.x % Sprite.SCALED_SIZE == 0 && this.y % Sprite.SCALED_SIZE == 0) {
-            checkMove = 0;
-            while (!canMove(this.direction)) {
-                this.direction = enemyMove.move();
+         if (this.x % Sprite.SCALED_SIZE == 0 && this.y % Sprite.SCALED_SIZE == 0) {
+            this.direction = enemyMove.move();
+            if (canMove(direction)){
+                moving = true;
+                checkMove = this.direction;
             }
-            checkMove = this.direction;
+            else moving = false;
         }
-        switch (checkMove) {
-            case 1:
-                move(0, 0 - _speed);
-                break;
-            case 2:
-                move(_speed, 0);
-                break;
-            case 3:
-                move(0, _speed);
-                break;
-            case 4:
-                move(0 - _speed, 0);
-                break;
+        if (moving){
+            switch (checkMove){
+                case 1:
+                    move(0, 0 - _speed);
+                    break;
+                case 2:
+                    move(_speed, 0);
+                    break;
+                case 3 :
+                    move(0, _speed);
+                    break;
+                case 4 :
+                    move( 0 - _speed, 0);
+                    break;
+            }
         }
-        chooseSprite();
-        this.setImg(sprite.getFxImage());
     }
 
     @Override
@@ -77,9 +85,6 @@ public abstract class Enemy extends Character {
         this.x += numX;
         this.y += numY;
     }
-//    if(!alive) return;
-//    y+=ye;
-//    x+=xe;
 
     @Override
     public void kill() {
@@ -92,11 +97,9 @@ public abstract class Enemy extends Character {
 
     }
 
-    protected boolean canMove(int direction) {
-        this.setxUnit();
-        this.setyUnit();
-        int i = this.xUnit;
-        int j = this.yUnit;
+    public boolean canMove(int direction) {
+        int i = this.getxUnit();
+        int j = this.getyUnit();
         switch (direction) {
             case 1:
                 j--;

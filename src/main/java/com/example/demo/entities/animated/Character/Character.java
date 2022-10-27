@@ -9,7 +9,8 @@ public abstract class Character extends AnimatedEntity {
     protected int direction = -1;
     protected boolean alive = true;
     protected boolean moving = false;
-    public int timeAfter = 40;
+
+    protected int timeAfter = 40;
 
     public Character(int xUnit, int yUnit, Sprite sprite) {
         super(xUnit, yUnit, sprite);
@@ -23,6 +24,17 @@ public abstract class Character extends AnimatedEntity {
         this.yUnit = this.y / Sprite.SCALED_SIZE;
     }
 
+    @Override
+    public int getxUnit(){
+        setxUnit();
+        return this.xUnit;
+    }
+
+    @Override
+    public int getyUnit(){
+        setyUnit();
+        return this.yUnit;
+    }
 
     @Override
     public abstract void update();
@@ -49,8 +61,20 @@ public abstract class Character extends AnimatedEntity {
 
     /**
      * Kiểm tra xem đối tượng có di chuyển tới vị trí đã tính toán hay không
-     * @param x
-     * @param y
+     * @param
+     * @param
      * @return
      */
+
+    protected int set(int n){
+        int check = n / Sprite.SCALED_SIZE;
+        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.75){
+            return (check + 1) * Sprite.SCALED_SIZE;
+        }
+        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.25){
+            return check * Sprite.SCALED_SIZE;
+        }
+
+        return n;
+    }
 }

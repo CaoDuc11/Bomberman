@@ -25,6 +25,7 @@ public class Brick extends AnimatedEntity {
     @Override
     public void update() {
         if(_destroy){
+            animate();
             if(_timeToDisapear > 0){
                 _timeToDisapear--;
             }
@@ -32,7 +33,7 @@ public class Brick extends AnimatedEntity {
                 remove();
             }
             if(_timeToDisapear > 0) {
-                this.sprite = Sprite.movingSprite(Sprite.brick_exploded,Sprite.brick_exploded1,Sprite.brick_exploded2,animate,120);
+                this.sprite = Sprite.movingSprite(Sprite.brick_exploded,Sprite.brick_exploded1,Sprite.brick_exploded2,animate,30);
             }
             this.setImg(sprite.getFxImage());
         }

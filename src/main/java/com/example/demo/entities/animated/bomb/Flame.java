@@ -48,6 +48,7 @@ public class Flame extends AnimatedEntity {
     }
     @Override
     public void update() {
+        animate();
         ChooseSprite();
         this.setImg(this.sprite.getFxImage());
     }

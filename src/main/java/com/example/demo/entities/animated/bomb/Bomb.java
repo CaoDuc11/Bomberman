@@ -48,6 +48,7 @@ public class Bomb extends AnimatedEntity {
 
     @Override
     public void update() {
+        animate();
         chooseSprite();
         if (_timeToExplode > 0){
             _timeToExplode--;
@@ -90,7 +91,7 @@ public class Bomb extends AnimatedEntity {
             sprite = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, animate, 60);
         } else if (_timeAfter > 0) {
             exploded();
-            sprite = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, AnimatedEntity.animate, 120);
+            sprite = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, animate, 120);
         }
     }
     /*@Override
