@@ -100,7 +100,7 @@ public class Bomber extends Character {
         this.alive = false;
     }
 
-    public void ChooseSprite() {
+    public void chooseSprite() {
         if(alive){
             switch (direction) {
                 case 1:
@@ -167,7 +167,7 @@ public class Bomber extends Character {
             else timeDelaySetBomb--;
             isSetBomb();
         }
-        ChooseSprite();
+        chooseSprite();
         this.setImg(sprite.getFxImage());
     }
 

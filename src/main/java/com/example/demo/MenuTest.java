@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Enemy.Balloon;
+import com.example.demo.entities.animated.Character.Enemy.Kondoria;
 import com.example.demo.entities.animated.Character.Enemy.Minvo;
 import com.example.demo.entities.animated.Character.Enemy.Oneal;
 import com.example.demo.entities.freeze.Grass;
@@ -142,50 +143,15 @@ public class MenuTest extends Game {
                         case '3':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Minvo(j ,i, Sprite.oneal_left1,1,100);
+                            obj = new Minvo(j ,i, Sprite.minvo_dead,1,100);
                             entities.add(obj);
                             break;
-
-                        /*
-                            case 'x':
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(obj);
-                            obj = new Portal(j, i, Sprite.portal.getFxImage());
-                            stillObjects.add(obj);
-                            obj = new Brick(j, i, Sprite.brick.getFxImage());
-                            entities.add(obj);
-                            break;
-                              case '1' :
+                        case '4':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Balloon(j ,i, Sprite.balloom_right1);
+                            obj = new Kondoria(j ,i, Sprite.kondoria_dead,1,100);
                             entities.add(obj);
                             break;
-                        case '2' :
-                            obj = new Grass(j, i, Sprite.grass);
-                            stillObjects.add(obj);
-                            obj = new Oneal(j, i, Sprite.oneal_right1);
-                            entities.add(obj);
-                            break;
-
-
-                        case 'f' :
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(obj);
-                            obj = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
-                            entities.add(obj);
-                            obj = new Brick(j, i, Sprite.brick);
-                            entities.add(obj);
-                            break;
-
-                        case 's' :
-                            obj = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(obj);
-                            obj = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
-                            entities.add(obj);
-                             obj = new Brick(j, i, Sprite.brick);
-                            entities.add(obj);
-                            break;*/
                     }
                 }
             }

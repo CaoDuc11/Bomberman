@@ -39,6 +39,7 @@ public abstract class Character extends AnimatedEntity {
     @Override
     public abstract void update();
 
+    protected abstract void chooseSprite();
 
     /**
      * Tính toán hướng đi
