@@ -1,4 +1,4 @@
-package com.example.demo.entities.freeze.items;
+package com.example.demo.entities.freeze.tile.items;
 
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;

@@ -2,20 +2,17 @@ package com.example.demo.entities.animated.Character;
 
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;
-import com.example.demo.entities.animated.Character.Character;
 import com.example.demo.entities.animated.Character.Enemy.Enemy;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
-import com.example.demo.entities.freeze.destroyable.LayerEntity;
+import com.example.demo.entities.freeze.LayerEntity;
 import com.example.demo.graphics.Sprite;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
 import javafx.scene.Scene;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Bomber extends Character {

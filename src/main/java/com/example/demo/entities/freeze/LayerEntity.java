@@ -1,6 +1,7 @@
-package com.example.demo.entities.freeze.destroyable;
+package com.example.demo.entities.freeze;
 
 import com.example.demo.entities.Entity;
+import com.example.demo.entities.freeze.destroyable.Brick;
 import com.example.demo.graphics.Sprite;
 
 

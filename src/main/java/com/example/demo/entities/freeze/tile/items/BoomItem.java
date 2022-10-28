@@ -1,12 +1,14 @@
-package com.example.demo.entities.freeze.items;
+package com.example.demo.entities.freeze.tile.items;
 
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.graphics.Sprite;
 
-public class FlameItem extends Item {
-    public FlameItem(int xUnit, int yUnit, Sprite sprite) {
+public class BoomItem extends Item {
+
+
+    public BoomItem(int xUnit, int yUnit, Sprite sprite) {
         super(xUnit, yUnit, sprite.getFxImage());
     }
 
@@ -14,7 +16,7 @@ public class FlameItem extends Item {
     public boolean collide(Entity e) {
         if(e instanceof Bomber){
             if(checkCollide(e.getX(), e.getY())) {
-                Game.addBombRadius(0.5);
+                Game.addBombRate(0.5);
                 remove();
             }
         }
@@ -23,6 +25,5 @@ public class FlameItem extends Item {
 
     @Override
     public void update() {
-
     }
 }

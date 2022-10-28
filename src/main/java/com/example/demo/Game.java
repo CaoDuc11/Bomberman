@@ -1,38 +1,21 @@
 package com.example.demo;
 
 import com.example.demo.entities.*;
-import com.example.demo.entities.animated.Character.Enemy.Balloon;
 import com.example.demo.entities.animated.Character.Bomber;
-import com.example.demo.entities.animated.Character.Character;
 import com.example.demo.entities.animated.Character.Enemy.Enemy;
-import com.example.demo.entities.animated.Character.Enemy.Oneal;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
-import com.example.demo.entities.freeze.Grass;
-import com.example.demo.entities.freeze.Wall;
-import com.example.demo.entities.freeze.destroyable.Brick;
-import com.example.demo.entities.freeze.destroyable.LayerEntity;
-import com.example.demo.entities.freeze.items.BoomItem;
-import com.example.demo.entities.freeze.items.FlameItem;
-import com.example.demo.entities.freeze.items.SpeedItem;
-import javafx.animation.AnimationTimer;;
+;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import com.example.demo.graphics.Sprite;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 

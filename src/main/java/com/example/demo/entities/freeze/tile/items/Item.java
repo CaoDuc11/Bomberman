@@ -1,10 +1,9 @@
-package com.example.demo.entities.freeze.items;
+package com.example.demo.entities.freeze.tile.items;
 
-import com.example.demo.entities.Entity;
-import com.example.demo.graphics.Sprite;
+import com.example.demo.entities.freeze.tile.Tile;
 import javafx.scene.image.Image;
 
-public abstract class Item extends Entity {
+public abstract class Item extends Tile {
     public Item(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
