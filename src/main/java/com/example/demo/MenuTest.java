@@ -8,7 +8,7 @@ import com.example.demo.entities.animated.Character.Enemy.Minvo;
 import com.example.demo.entities.animated.Character.Enemy.Oneal;
 import com.example.demo.entities.freeze.tile.Grass;
 import com.example.demo.entities.freeze.tile.Wall;
-import com.example.demo.entities.freeze.destroyable.Brick;
+import com.example.demo.entities.animated.destroyable.Brick;
 import com.example.demo.entities.freeze.LayerEntity;
 import com.example.demo.entities.freeze.tile.items.BoomItem;
 import com.example.demo.entities.freeze.tile.items.FlameItem;
