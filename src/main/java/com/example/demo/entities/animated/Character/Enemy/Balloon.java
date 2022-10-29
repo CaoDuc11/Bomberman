@@ -2,6 +2,7 @@ package com.example.demo.entities.animated.Character.Enemy;
 
 import com.example.demo.entities.animated.Character.EneMove.NormalMove;
 import com.example.demo.graphics.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Balloon extends Enemy {
     public Balloon(int x, int y, Sprite sprite,double speed, int point){

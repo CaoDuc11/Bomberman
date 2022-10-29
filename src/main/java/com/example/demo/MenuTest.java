@@ -7,6 +7,7 @@ import com.example.demo.entities.animated.Character.Enemy.Kondoria;
 import com.example.demo.entities.animated.Character.Enemy.Minvo;
 import com.example.demo.entities.animated.Character.Enemy.Oneal;
 import com.example.demo.entities.freeze.tile.Grass;
+import com.example.demo.entities.freeze.tile.Portal;
 import com.example.demo.entities.freeze.tile.Wall;
 import com.example.demo.entities.freeze.destroyable.Brick;
 import com.example.demo.entities.freeze.LayerEntity;
@@ -33,6 +34,9 @@ import java.util.List;
 public class MenuTest extends Game {
     private Stage stage;
 
+    protected int count=1;
+
+    protected javafx.event.ActionEvent test1;
     public void Test(javafx.event.ActionEvent test) throws FileNotFoundException {
         stage = (Stage) ((Node) test.getSource()).getScene().getWindow();
         canvas = new Canvas(Sprite.SCALED_SIZE * Game.WIDTH, Sprite.SCALED_SIZE * Game.HEIGHT);
@@ -52,27 +56,47 @@ public class MenuTest extends Game {
 
         Entity bomberman = new Bomber(1, 1, Sprite.player_right);
 
-        entities.add(bomberman);
+//        entities.add(bomberman);
 
         createMap();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                Bomber.getControl(scene);
-                render();
-                update();
-                for(int i = 0; i < entities.size(); i++){
-                    if(entities.get(i).isRemoved()) entities.remove(i);
+                if (!Portal.isStepOn) {
+                    Bomber.getControl(scene);
+                    render();
+                    update();
+                    for (int i = 0; i < entities.size(); i++) {
+                        if (entities.get(i).isRemoved()) entities.remove(i);
+                    }
+                    for (int i = 0; i < extraEntity.size(); i++) {
+                        entities.add(extraEntity.get(i));
+                        extraEntity.remove(i);
+                    }
+                    ;} else{
+                    int i = count+1;
+                    if(i<=2){
+                        count++;
+                        try {
+                            nextLevel();
+                            createMap();
+//                            System.out.println(count);
+//                            this.stop();
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
-                for (int i = 0; i < extraEntity.size(); i++){
-                    entities.add(extraEntity.get(i));
-                    extraEntity.remove(i);
-                };
-            }
+                }
         };
         timer.start();
     }
 
+    public void nextLevel(){
+        stillObjects.clear();
+        entities.clear();
+        Portal.isStepOn=false;
+    }
     public void Control(javafx.event.ActionEvent controlEvent) throws IOException{
             stage = (Stage) ((Node) controlEvent.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/getControl.fxml"));
@@ -89,7 +113,7 @@ public class MenuTest extends Game {
         List<String> str = new ArrayList<>();
 
         try {
-            FileReader fr = new FileReader("Bomberman/src/main/resources/levels/Level1.txt");
+            FileReader fr = new FileReader("Bomberman/src/main/resources/levels/Level"+count+".txt");
             BufferedReader br = new BufferedReader(fr);
 
             String line = "";
@@ -103,6 +127,12 @@ public class MenuTest extends Game {
             for (int i = 0; i < HEIGHT; i++) {
                 for (int j = 0; j < WIDTH; j++) {
                     switch (str.get(i + 1).charAt(j)) {
+                        case 'p':
+                            obj = new Grass(j, i, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj= new Bomber(j,i,Sprite.player_right);
+                            entities.add(obj);
+                            break;
                         case '#':
                             obj = new Wall(j, i, Sprite.wall);
                             stillObjects.add(obj);
@@ -125,6 +155,10 @@ public class MenuTest extends Game {
                             break;
                         case 's' :
                             obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new SpeedItem(j, i, Sprite.powerup_speed), new Grass(j, i, Sprite.grass));
+                            stillObjects.add(obj);
+                            break;
+                        case 'x' :
+                            obj = new LayerEntity(j,i,new Brick(j,i,Sprite.brick), new Portal(j,i,Sprite.portal), new Grass(j,i,Sprite.grass));
                             stillObjects.add(obj);
                             break;
                         case '1':

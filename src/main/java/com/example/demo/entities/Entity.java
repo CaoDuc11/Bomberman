@@ -51,11 +51,11 @@ public abstract class Entity {
     }
 
     public int getXTile() {
-        return (int)(x + sprite.SIZE / 2) /16;
+        return (int)((x + Sprite.DEFAULT_SIZE/2) / 16);
     }
 
     public int getYTile() {
-        return (int)(y - sprite.SIZE / 2) / 16;
+        return (int)((y - Sprite.DEFAULT_SIZE / 2) / 16);
     }
 
     public void render(GraphicsContext gc) {

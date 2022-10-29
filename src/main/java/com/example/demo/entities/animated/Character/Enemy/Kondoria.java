@@ -32,13 +32,13 @@ public class Kondoria extends Enemy{
                     this.x += _speed;
                     this.direction = 2;
                 }
-                if(b.getX() < this.getX()){
-                    this.x -= _speed;
-                    this.direction = 4;
-                }
                 if(b.getY() > this.getY()){
                     this.y += _speed;
                     this.direction = 3;
+                }
+                if(b.getX() < this.getX()){
+                    this.x -= _speed;
+                    this.direction = 4;
                 }
                 if(b.getY() < this.getY()){
                     this.y -= _speed;

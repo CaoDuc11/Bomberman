@@ -3,6 +3,7 @@ package com.example.demo.entities.animated.Character;
 import com.example.demo.entities.animated.AnimatedEntity;
 import com.example.demo.entities.animated.Character.EneMove.NormalMove;
 import com.example.demo.graphics.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Character extends AnimatedEntity {
@@ -17,11 +18,11 @@ public abstract class Character extends AnimatedEntity {
     }
 
     public void setxUnit() {
-        this.xUnit = this.x / Sprite.SCALED_SIZE;
+        this.xUnit = (this.x + Sprite.SCALED_SIZE/2) / Sprite.SCALED_SIZE;
     }
 
     public void setyUnit() {
-        this.yUnit = this.y  / Sprite.SCALED_SIZE;
+        this.yUnit = (this.y + Sprite.SCALED_SIZE/2) / Sprite.SCALED_SIZE;
     }
 
     @Override
