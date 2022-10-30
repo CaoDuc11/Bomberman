@@ -44,10 +44,10 @@ public class Kondoria extends Enemy{
                     this.y -= _speed;
                     this.direction = 1;
                 }
-                if(b.getX() == this.getX() && b.getY() == this.getY()) b.kill();
             }
         }
-
+        Entity e = Game.getEntity(this.getxUnit(), this.getyUnit(), this);
+        this.collide(e);
     }
     @Override
     public void chooseSprite() {
