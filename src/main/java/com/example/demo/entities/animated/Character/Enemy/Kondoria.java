@@ -44,6 +44,7 @@ public class Kondoria extends Enemy{
                     this.y -= _speed;
                     this.direction = 1;
                 }
+                if(b.getX() == this.getX() && b.getY() == this.getY()) b.kill();
             }
         }
 
@@ -52,6 +53,7 @@ public class Kondoria extends Enemy{
     public void chooseSprite() {
         if(alive){
             switch(direction) {
+                case 0:
                 case 1:
                 case 2:
                     this.sprite = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, animate, 120);

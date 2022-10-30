@@ -11,11 +11,7 @@ import java.io.IOException;
 public class GameOver {
     private Stage stage;
     public void Over(javafx.event.ActionEvent over) throws IOException {
-        stage = (Stage) ((Node) over.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        MenuTest Test = new MenuTest();
+        Test.Test(over);
     }
 }

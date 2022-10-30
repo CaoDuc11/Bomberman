@@ -1,6 +1,7 @@
 package com.example.demo.entities.animated.Character;
 
 import com.example.demo.Game;
+import com.example.demo.Sound;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Enemy.Enemy;
 import com.example.demo.entities.animated.bomb.Bomb;
@@ -184,10 +185,12 @@ public class Bomber extends Character {
 
     private void isSetBomb() {
         if (space && Game.getBombRate() > 0 && timeDelaySetBomb < 0) {
+
             int xT = (int) ((x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE);
             int yT = (int) ((y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE);
             Bomb b = new Bomb(xT, yT, Sprite.bomb, (int) Game.getBombRadius());
             addBomb(b);
+            Sound.bomb.play();
             Game.addBombRate(-1);
 
             timeDelaySetBomb = 20;

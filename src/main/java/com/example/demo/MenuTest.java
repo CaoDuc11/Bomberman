@@ -22,12 +22,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,19 +50,19 @@ public class MenuTest extends Game {
         Scene scene = new Scene(root);
 
 
+
+        Sound.background.setCycleCount(MediaPlayer.INDEFINITE);
+        Sound.background.play();
+        System.out.println(new File("Bomberman/src/main/resources/sound/4 - Track 4.mp3").exists());
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right);
-
-//        entities.add(bomberman);
 
         createMap();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if(!Bomber.alive && bool == true){
+                if(Game.getBomber() == null && bool == true){
                     bool = false;
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GameOver.fxml"));
                     Parent root2 = null;
@@ -194,13 +192,13 @@ public class MenuTest extends Game {
                         case '2':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Oneal(j ,i, Sprite.oneal_left1,2,100);
+                            obj = new Oneal(j ,i, Sprite.oneal_left1,1,100);
                             entities.add(obj);
                             break;
                         case '3':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Minvo(j ,i, Sprite.minvo_dead,1,100);
+                            obj = new Minvo(j ,i, Sprite.minvo_dead,2,100);
                             entities.add(obj);
                             break;
                         case '4':

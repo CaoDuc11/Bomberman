@@ -6,6 +6,7 @@ import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Character;
 import com.example.demo.entities.animated.Character.EneMove.EnemyMove;
 import com.example.demo.entities.animated.Character.EneMove.NormalMove;
+import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
 import com.example.demo.graphics.Sprite;
 
@@ -50,7 +51,6 @@ public abstract class Enemy extends Character {
         chooseSprite();
         this.setImg(sprite.getFxImage());
     }
-
 
     @Override
     protected void calculateMove() {

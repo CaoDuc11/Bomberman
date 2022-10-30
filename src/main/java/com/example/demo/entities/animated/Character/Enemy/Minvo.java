@@ -3,13 +3,14 @@ package com.example.demo.entities.animated.Character.Enemy;
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.EneMove.AILowMove;
+import com.example.demo.entities.animated.Character.EneMove.AIMediumMove;
 import com.example.demo.entities.animated.Character.EneMove.NormalMove;
 import com.example.demo.graphics.Sprite;
 
 public class Minvo extends Enemy{
     public Minvo(int x, int y, Sprite sprite, double speed, int point) {
         super(x, y, sprite, speed, point);
-        enemyMove = new AILowMove(this);
+        enemyMove = new AIMediumMove(this);
         direction = enemyMove.move();
     }
     @Override
@@ -25,6 +26,7 @@ public class Minvo extends Enemy{
     public void chooseSprite() {
         if(alive){
             switch(direction) {
+                case 0:
                 case 1:
                 case 2:
                     this.sprite = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, animate, 120);

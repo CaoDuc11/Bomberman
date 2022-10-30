@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.entities.*;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Enemy.Enemy;
+import com.example.demo.entities.animated.Character.Enemy.Kondoria;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
 ;
@@ -126,7 +127,13 @@ public class Game extends Application {
         if(e != null) return e;
         if(!(d instanceof Enemy)){
             e = getEnemy(xUnit, yUnit);
-            if(e != null) return e;
+            if(e != null){
+                if(e instanceof Kondoria){
+                    Entity u = getEntityAt(xUnit, yUnit);
+                    u.collide(d);
+                }
+                return e;
+            }
         }
         e = getEntityAt(xUnit, yUnit);
         return e;

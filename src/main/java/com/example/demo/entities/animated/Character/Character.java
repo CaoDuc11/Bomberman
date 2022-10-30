@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 
 public abstract class Character extends AnimatedEntity {
     protected int direction = -1;
-    public static boolean alive = true;
+    public boolean alive = true;
     protected boolean moving = false;
 
     protected int timeAfter = 40;
@@ -17,11 +17,11 @@ public abstract class Character extends AnimatedEntity {
     }
 
     public void setxUnit() {
-        this.xUnit = ( this.x + Sprite.SCALED_SIZE / 2 ) / Sprite.SCALED_SIZE;
+        this.xUnit = ( this.x + Sprite.SCALED_SIZE / 4 ) / Sprite.SCALED_SIZE;
     }
 
     public void setyUnit() {
-        this.yUnit =( this.y + Sprite.SCALED_SIZE / 2 ) / Sprite.SCALED_SIZE;
+        this.yUnit =( this.y + Sprite.SCALED_SIZE / 4 ) / Sprite.SCALED_SIZE;
     }
 
     @Override

@@ -5,8 +5,11 @@ import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.EneMove.AILowMove;
 import com.example.demo.graphics.Sprite;
 
+import java.util.Random;
+
 public class Oneal extends Enemy {
 
+    private Random randomSpeed = new Random();
     public Oneal(int x, int y, Sprite sprite, double speed, int point){
         super(x,y,sprite,speed,point);
         enemyMove = new AILowMove(this);
@@ -14,6 +17,9 @@ public class Oneal extends Enemy {
     }
     @Override
     public void chooseSprite() {
+        if (this.x % Sprite.SCALED_SIZE == 0 && this.y % Sprite.SCALED_SIZE == 0) {
+            this._speed = randomSpeed.nextInt(3);
+        }
         if(alive){
             switch (direction) {
                 case 1:

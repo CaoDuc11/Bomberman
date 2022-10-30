@@ -63,7 +63,7 @@ public abstract class Entity {
     }
 
     public void remove(){ remove = true;}
-    public boolean isRemoved(){
+    public  boolean isRemoved(){
         return remove;
     }
 
