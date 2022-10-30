@@ -39,7 +39,6 @@ public class MenuTest extends Game {
 
     protected javafx.event.ActionEvent test1;
     public void Test(javafx.event.ActionEvent test) throws FileNotFoundException {
-//        nextLevel();
         stage = (Stage) ((Node) test.getSource()).getScene().getWindow();
         canvas = new Canvas(Sprite.SCALED_SIZE * Game.WIDTH, Sprite.SCALED_SIZE * Game.HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -51,20 +50,21 @@ public class MenuTest extends Game {
         // Tao scene
         Scene scene = new Scene(root);
 
-
-
-//        Sound.background.setCycleCount(MediaPlayer.INDEFINITE);
-//        Sound.background.play();
-//        System.out.println(new File("Bomberman/src/main/resources/sound/4 - Track 4.mp3").exists());
-        // Them scene vao stage
         stage.setScene(scene);
         stage.show();
 
         createMap();
+        Sound.track10.setCycleCount(MediaPlayer.INDEFINITE);
+        Sound.track10.play();
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 if(Game.getBomber() == null && bool == true){
+                    Sound.background.stop();
+                    Sound.track10.stop();
+                    Sound.win.setCycleCount(MediaPlayer.INDEFINITE);
+                    Sound.win.play();
                     bool = false;
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GameOver.fxml"));
                     Parent root2 = null;
@@ -80,6 +80,10 @@ public class MenuTest extends Game {
                 }
                 if(count==2 && bool1==true) {
                     if (entities.size()==1 && entities.get(0) instanceof Bomber) {
+                        Sound.background.stop();
+                        Sound.track10.stop();
+                        Sound.win.setCycleCount(MediaPlayer.INDEFINITE);
+                        Sound.win.play();
                         bool1 = false;
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/YouWin.fxml"));
                         Parent root3 = null;
@@ -112,8 +116,8 @@ public class MenuTest extends Game {
                         try {
                             nextLevel();
                             createMap();
-//                            System.out.println(count);
-//                            this.stop();
+                            Sound.nextlevel.stop();
+                            Sound.nextlevel.play();
                         } catch (FileNotFoundException e) {
                             throw new RuntimeException(e);
                         }

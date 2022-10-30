@@ -1,6 +1,7 @@
 package com.example.demo.entities.freeze.tile.items;
 
 import com.example.demo.Game;
+import com.example.demo.Sound;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Enemy.Enemy;
@@ -30,6 +31,8 @@ public class Portal extends Item {
                 }
             }
             if(checkCollide(e.getX(),e.getY())) {
+                Sound.doorhit.stop();
+                Sound.doorhit.play();
                 isStepOn = true;
             }
             return true;

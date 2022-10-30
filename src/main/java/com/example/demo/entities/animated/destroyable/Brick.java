@@ -1,5 +1,6 @@
 package com.example.demo.entities.animated.destroyable;
 
+import com.example.demo.Sound;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.AnimatedEntity;
 import com.example.demo.entities.animated.bomb.Flame;
@@ -24,6 +25,8 @@ public class Brick extends AnimatedEntity {
     @Override
     public void update() {
         if(_destroy){
+            Sound.destroy.stop();
+            Sound.destroy.play();
             animate();
             if(_timeToDisapear > 0){
                 _timeToDisapear--;

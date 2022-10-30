@@ -71,6 +71,8 @@ public class Bomb extends AnimatedEntity {
         }*/
     }
     public void exploded(){
+        Sound.explosion.stop();
+        Sound.explosion.play();
         createFlame();
         _exploded = true;
         _allowedToPassThru = true;

@@ -36,12 +36,15 @@ public class Bomber extends Character {
         if (numX < 0) direction = 4;
         if(numX != 0) this.y = set(this.y);
         if (canMove(numX, 0)) {
+            Sound.running_2.stop();
+            Sound.running_1.play();
             this.x += numX;
         }
         if(numY != 0)  this.x = set(this.x);
         if (canMove(0, numY)) {
+            Sound.running_1.stop();
+            Sound.running_2.play();
             this.y += numY;
-
         }
 
     }
@@ -59,34 +62,28 @@ public class Bomber extends Character {
         double yA = (checkY + 1 )/ Sprite.SCALED_SIZE;
         double yB = (checkY + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
 
+        Entity a = null;
+        Entity b = null;
         if (this.direction == 1) {
-            Entity a = Game.getEntity((int) xA, (int) yA, this);
-            Entity b = Game.getEntity((int) xB, (int) yA, this);
-            if (!a.collide(this) || !b.collide(this)) {
-                return false;
-            }
+            a = Game.getEntity((int) xA, (int) yA, this);
+            b = Game.getEntity((int) xB, (int) yA, this);
         }
         if (this.direction == 2) {
-            Entity a = Game.getEntity((int) xB, (int) yA, this);
-            Entity b = Game.getEntity((int) xB, (int) yB, this);
-            if (!a.collide(this) || !b.collide(this)) {
-                return false;
-            }
+            a = Game.getEntity((int) xB, (int) yA, this);
+            b = Game.getEntity((int) xB, (int) yB, this);
         }
         if (this.direction == 3) {
-            Entity a = Game.getEntity((int) xA, (int) yB, this);
-            Entity b = Game.getEntity((int) xB, (int) yB, this);
-            if (!a.collide(this) || !b.collide(this)) {
-                return false;
-            }
+            a = Game.getEntity((int) xA, (int) yB, this);
+            b = Game.getEntity((int) xB, (int) yB, this);
+
         }
         if (this.direction == 4) {
-            Entity a = Game.getEntity((int) xA, (int) yA, this);
-            Entity b = Game.getEntity((int) xA, (int) yB, this);
-            if (!a.collide(this) || !b.collide(this)) {
-                return false;
-          }
-      }
+            a = Game.getEntity((int) xA, (int) yA, this);
+            b = Game.getEntity((int) xA, (int) yB, this);
+        }
+        if (!a.collide(this) || !b.collide(this)) {
+            return false;
+        }
         return true;
 
     }
@@ -96,6 +93,8 @@ public class Bomber extends Character {
     public void kill() {
         if (!this.alive) return;
         this.alive = false;
+        Sound.death.stop();
+        Sound.death.play();
     }
 
     public void chooseSprite() {
@@ -190,7 +189,8 @@ public class Bomber extends Character {
             int yT = (int) ((y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE);
             Bomb b = new Bomb(xT, yT, Sprite.bomb, (int) Game.getBombRadius());
             addBomb(b);
-//            Sound.bomb.play();
+            Sound.bomb.stop();
+            Sound.bomb.play();
             Game.addBombRate(-1);
 
             timeDelaySetBomb = 20;

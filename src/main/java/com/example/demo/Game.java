@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -82,6 +83,7 @@ public class Game extends Application {
 
     public void start (Stage stage) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
+        Sound.background.play();
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
