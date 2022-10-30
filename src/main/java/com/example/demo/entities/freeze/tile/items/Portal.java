@@ -1,16 +1,17 @@
-package com.example.demo.entities.freeze.tile;
+package com.example.demo.entities.freeze.tile.items;
 
 import com.example.demo.Game;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Enemy.Enemy;
+import com.example.demo.entities.freeze.tile.items.Item;
 import com.example.demo.graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.awt.*;
 
-public class Portal extends Tile{
+public class Portal extends Item {
 
     private Image below;
 
@@ -28,9 +29,11 @@ public class Portal extends Tile{
                     return false;
                 }
             }
+            if(checkCollide(e.getX(),e.getY())) {
                 isStepOn = true;
-                return true;
             }
+            return true;
+        }
         return false;
     }
     @Override

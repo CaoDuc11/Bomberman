@@ -7,7 +7,7 @@ import com.example.demo.entities.animated.Character.Enemy.Kondoria;
 import com.example.demo.entities.animated.Character.Enemy.Minvo;
 import com.example.demo.entities.animated.Character.Enemy.Oneal;
 import com.example.demo.entities.freeze.tile.Grass;
-import com.example.demo.entities.freeze.tile.Portal;
+import com.example.demo.entities.freeze.tile.items.Portal;
 import com.example.demo.entities.freeze.tile.Wall;
 import com.example.demo.entities.freeze.destroyable.Brick;
 import com.example.demo.entities.freeze.LayerEntity;
@@ -34,6 +34,7 @@ import java.util.List;
 public class MenuTest extends Game {
     private Stage stage;
 
+    protected boolean bool= true;
     protected int count=1;
 
     protected javafx.event.ActionEvent test1;
@@ -62,6 +63,19 @@ public class MenuTest extends Game {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                if(!Bomber.alive && bool == true){
+                    bool = false;
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GameOver.fxml"));
+                    Parent root2 = null;
+                    try {
+                        root2 = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Scene scene = new Scene(root2);
+                    stage.setScene(scene);
+                    stage.show();
+                }
                 if (!Portal.isStepOn) {
                     Bomber.getControl(scene);
                     render();

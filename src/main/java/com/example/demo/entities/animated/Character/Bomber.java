@@ -6,7 +6,6 @@ import com.example.demo.entities.animated.Character.Enemy.Enemy;
 import com.example.demo.entities.animated.bomb.Bomb;
 import com.example.demo.entities.animated.bomb.Flame;
 import com.example.demo.entities.freeze.LayerEntity;
-import com.example.demo.entities.freeze.tile.Portal;
 import com.example.demo.graphics.Sprite;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
