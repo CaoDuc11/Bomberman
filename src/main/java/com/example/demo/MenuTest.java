@@ -39,6 +39,7 @@ public class MenuTest extends Game {
 
     protected javafx.event.ActionEvent test1;
     public void Test(javafx.event.ActionEvent test) throws FileNotFoundException {
+//        nextLevel();
         stage = (Stage) ((Node) test.getSource()).getScene().getWindow();
         canvas = new Canvas(Sprite.SCALED_SIZE * Game.WIDTH, Sprite.SCALED_SIZE * Game.HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -75,6 +76,7 @@ public class MenuTest extends Game {
                     Scene scene = new Scene(root2);
                     stage.setScene(scene);
                     stage.show();
+                    this.stop();
                 }
                 if (!Portal.isStepOn) {
                     Bomber.getControl(scene);
@@ -104,6 +106,14 @@ public class MenuTest extends Game {
                 }
         };
         timer.start();
+    }
+    public void Over(javafx.event.ActionEvent over) throws IOException {
+        stage = (Stage) ((Node) over.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void nextLevel(){
