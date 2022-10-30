@@ -1,6 +1,5 @@
-package com.example.demo.entities.freeze.destroyable;
+package com.example.demo.entities.animated.destroyable;
 
-import com.example.demo.entities.Entity;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.AnimatedEntity;
 import com.example.demo.entities.animated.bomb.Flame;

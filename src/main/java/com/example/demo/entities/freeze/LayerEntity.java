@@ -1,15 +1,12 @@
 package com.example.demo.entities.freeze;
 
 import com.example.demo.entities.Entity;
-import com.example.demo.entities.freeze.destroyable.Brick;
-import com.example.demo.graphics.Sprite;
+import com.example.demo.entities.animated.destroyable.Brick;
 
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import java.awt.*;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class LayerEntity extends Entity {
     public ArrayList<Entity> _entity = new ArrayList<>();
