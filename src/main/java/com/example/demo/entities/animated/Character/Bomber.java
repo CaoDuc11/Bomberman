@@ -190,7 +190,7 @@ public class Bomber extends Character {
             int yT = (int) ((y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE);
             Bomb b = new Bomb(xT, yT, Sprite.bomb, (int) Game.getBombRadius());
             addBomb(b);
-            Sound.bomb.play();
+//            Sound.bomb.play();
             Game.addBombRate(-1);
 
             timeDelaySetBomb = 20;

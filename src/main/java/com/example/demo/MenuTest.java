@@ -33,6 +33,8 @@ public class MenuTest extends Game {
     private Stage stage;
 
     protected boolean bool= true;
+
+    protected boolean bool1= true;
     protected int count=1;
 
     protected javafx.event.ActionEvent test1;
@@ -51,9 +53,9 @@ public class MenuTest extends Game {
 
 
 
-        Sound.background.setCycleCount(MediaPlayer.INDEFINITE);
-        Sound.background.play();
-        System.out.println(new File("Bomberman/src/main/resources/sound/4 - Track 4.mp3").exists());
+//        Sound.background.setCycleCount(MediaPlayer.INDEFINITE);
+//        Sound.background.play();
+//        System.out.println(new File("Bomberman/src/main/resources/sound/4 - Track 4.mp3").exists());
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
@@ -75,6 +77,22 @@ public class MenuTest extends Game {
                     stage.setScene(scene);
                     stage.show();
                     this.stop();
+                }
+                if(count==2 && bool1==true) {
+                    if (entities.size()==1 && entities.get(0) instanceof Bomber) {
+                        bool1 = false;
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/YouWin.fxml"));
+                        Parent root3 = null;
+                        try {
+                            root3 = loader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Scene scene = new Scene(root3);
+                        stage.setScene(scene);
+                        stage.show();
+                        this.stop();
+                    }
                 }
                 if (!Portal.isStepOn) {
                     Bomber.getControl(scene);
