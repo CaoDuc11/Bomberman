@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 
 public abstract class Character extends AnimatedEntity {
     protected int direction = -1;
-    protected boolean alive = true;
+    public static boolean alive = true;
     protected boolean moving = false;
 
     protected int timeAfter = 40;
