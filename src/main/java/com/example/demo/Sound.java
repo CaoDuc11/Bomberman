@@ -10,6 +10,7 @@ public class Sound {
 
     public Sound() {
     }
+
     public static MediaPlayer track10 = new MediaPlayer(new Media(new File("Bomberman/src/main/resources/sound/4 - Track 4.mp3").toURI().toString()));
     public static MediaPlayer background = new MediaPlayer(new Media(new File("Bomberman/src/main/resources/sound/background.wav").toURI().toString()));
     public static MediaPlayer bomb = new MediaPlayer(new Media(new File("Bomberman/src/main/resources/sound/nes_bomb.wav").toURI().toString()));
@@ -23,7 +24,6 @@ public class Sound {
     public static MediaPlayer running_2 = new MediaPlayer(new Media(new File("Bomberman/src/main/resources/sound/running_2.wav").toURI().toString()));
     public static MediaPlayer collideTile = new MediaPlayer(new Media(new File("Bomberman/src/main/resources/sound/title_screen.wav").toURI().toString()));
     public static MediaPlayer win = new MediaPlayer(new Media(new File("Bomberman/src/main/resources/sound/win_title.wav").toURI().toString()));
-
 
 
 }

@@ -9,13 +9,15 @@ public abstract class AnimatedEntity extends Entity {
     public AnimatedEntity(int xUnit, int yUnit, Sprite sprite) {
         super(xUnit, yUnit, sprite.getFxImage());
     }
-    public  int animate = 0;
-    public  final int MAX_ANIMATE = 7500;
+
+    public int animate = 0;
+    public final int MAX_ANIMATE = 7500;
 
     protected Sprite sprite;
 
-    public  void animate() {
-        if(animate < MAX_ANIMATE) animate++; else animate = 0;
+    public void animate() {
+        if (animate < MAX_ANIMATE) animate++;
+        else animate = 0;
     }
 
 }

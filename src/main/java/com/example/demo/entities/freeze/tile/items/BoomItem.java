@@ -15,8 +15,8 @@ public class BoomItem extends Item {
 
     @Override
     public boolean collide(Entity e) {
-        if(e instanceof Bomber){
-            if(checkCollide(e.getX(), e.getY())) {
+        if (e instanceof Bomber) {
+            if (checkCollide(e.getX(), e.getY())) {
                 Sound.item.stop();
                 Sound.item.play();
                 Game.addBombRate(0.5);

@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Win {
     private Stage stage;
+
     public void Win(javafx.event.ActionEvent win) throws IOException {
 
     }

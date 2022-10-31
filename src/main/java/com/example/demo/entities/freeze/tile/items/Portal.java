@@ -17,20 +17,21 @@ public class Portal extends Item {
     private Image below;
 
     public static boolean isStepOn = false;
-    public Portal(int xUnit, int yUnit, Sprite sprite){
+
+    public Portal(int xUnit, int yUnit, Sprite sprite) {
         super(xUnit, yUnit, sprite.getFxImage());
         this.below = Sprite.grass.getFxImage();
     }
 
     @Override
     public boolean collide(Entity e) {
-        if(e instanceof Bomber) {
+        if (e instanceof Bomber) {
             for (int i = 0; i < Game.entities.size(); i++) {
                 if (Game.entities.get(i) instanceof Enemy) {
                     return false;
                 }
             }
-            if(checkCollide(e.getX(),e.getY())) {
+            if (checkCollide(e.getX(), e.getY())) {
                 Sound.doorhit.stop();
                 Sound.doorhit.play();
                 isStepOn = true;
@@ -39,9 +40,10 @@ public class Portal extends Item {
         }
         return false;
     }
+
     @Override
-    public void render(GraphicsContext gc){
-        gc.drawImage(below,x, y);
+    public void render(GraphicsContext gc) {
+        gc.drawImage(below, x, y);
         gc.drawImage(img, x, y);
     }
 

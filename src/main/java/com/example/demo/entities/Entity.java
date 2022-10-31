@@ -26,7 +26,7 @@ public abstract class Entity {
     protected boolean remove = false;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
-    public Entity( int xUnit, int yUnit, Image img) {
+    public Entity(int xUnit, int yUnit, Image img) {
         this.xUnit = xUnit;
         this.yUnit = yUnit;
         this.x = xUnit * Sprite.SCALED_SIZE;
@@ -51,19 +51,22 @@ public abstract class Entity {
     }
 
     public int getXTile() {
-        return (int)((x + Sprite.DEFAULT_SIZE/2) / 16);
+        return (int) ((x + Sprite.DEFAULT_SIZE / 2) / 16);
     }
 
     public int getYTile() {
-        return (int)((y - Sprite.DEFAULT_SIZE / 2) / 16);
+        return (int) ((y - Sprite.DEFAULT_SIZE / 2) / 16);
     }
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
 
-    public void remove(){ remove = true;}
-    public  boolean isRemoved(){
+    public void remove() {
+        remove = true;
+    }
+
+    public boolean isRemoved() {
         return remove;
     }
 

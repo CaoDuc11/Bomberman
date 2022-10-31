@@ -47,7 +47,7 @@ public class Sprite {
     public static Sprite player_down_2 = new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles, 12, 16);
 
     public static Sprite player_left_1 = new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles, 11, 16);
-    public static Sprite player_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12 ,16);
+    public static Sprite player_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12, 16);
 
     public static Sprite player_right_1 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles, 11, 16);
     public static Sprite player_right_2 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles, 12, 16);
@@ -220,16 +220,17 @@ public class Sprite {
         int calc = animate % time;
         int diff = time / 3;
 
-        if(calc < diff) {
+        if (calc < diff) {
             return normal;
         }
 
-        if(calc < diff * 2) {
+        if (calc < diff * 2) {
             return x1;
         }
 
         return x2;
     }
+
     public int getSize() {
         return SIZE;
     }
@@ -243,10 +244,9 @@ public class Sprite {
         PixelWriter pw = wr.getPixelWriter();
         for (int x = 0; x < SIZE; x++) {
             for (int y = 0; y < SIZE; y++) {
-                if ( _pixels[x + y * SIZE] == TRANSPARENT_COLOR) {
+                if (_pixels[x + y * SIZE] == TRANSPARENT_COLOR) {
                     pw.setArgb(x, y, 0);
-                }
-                else {
+                } else {
                     pw.setArgb(x, y, _pixels[x + y * SIZE]);
                 }
             }

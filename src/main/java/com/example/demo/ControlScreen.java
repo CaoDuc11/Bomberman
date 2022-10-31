@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class ControlScreen {
     private Stage stage;
+
     public void Exit(javafx.event.ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));

@@ -34,13 +34,13 @@ public class Bomber extends Character {
         if (numX > 0) direction = 2;
         if (numY > 0) direction = 3;
         if (numX < 0) direction = 4;
-        if(numX != 0) this.y = set(this.y);
+        if (numX != 0) this.y = set(this.y);
         if (canMove(numX, 0)) {
             Sound.running_2.stop();
             Sound.running_1.play();
             this.x += numX;
         }
-        if(numY != 0)  this.x = set(this.x);
+        if (numY != 0) this.x = set(this.x);
         if (canMove(0, numY)) {
             Sound.running_1.stop();
             Sound.running_2.play();
@@ -57,9 +57,9 @@ public class Bomber extends Character {
     protected boolean canMove(double x, double y) {
         double checkX = this.x + x;
         double checkY = this.y + y;
-        double xA = (checkX + 1)  / Sprite.SCALED_SIZE ;
-        double xB = (checkX  +  Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE ;
-        double yA = (checkY + 1 )/ Sprite.SCALED_SIZE;
+        double xA = (checkX + 1) / Sprite.SCALED_SIZE;
+        double xB = (checkX + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
+        double yA = (checkY + 1) / Sprite.SCALED_SIZE;
         double yB = (checkY + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
 
         Entity a = null;
@@ -98,7 +98,7 @@ public class Bomber extends Character {
     }
 
     public void chooseSprite() {
-        if(alive){
+        if (alive) {
             switch (direction) {
                 case 1:
                     sprite = Sprite.player_up;
@@ -128,9 +128,9 @@ public class Bomber extends Character {
                     sprite = Sprite.player_right;
                     break;
             }
-        }
-        else{
-            if(timeAfter < 20) sprite = sprite = Sprite.movingSprite(Sprite.player_dead1,Sprite.player_dead2,Sprite.player_dead3,animate,120);
+        } else {
+            if (timeAfter < 20)
+                sprite = sprite = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate, 120);
 
         }
 
@@ -142,15 +142,15 @@ public class Bomber extends Character {
 //            Portal.isStepOn = true;
 //            return true;
 //        }
-        if(e instanceof Flame){
+        if (e instanceof Flame) {
             this.kill();
             return true;
         }
-        if(e instanceof Enemy) {
+        if (e instanceof Enemy) {
             this.kill();
             return true;
         }
-        if(e instanceof LayerEntity) return e.collide(this);
+        if (e instanceof LayerEntity) return e.collide(this);
         return false;
     }
 
@@ -158,11 +158,10 @@ public class Bomber extends Character {
     public void update() {
         clearBomb();
         animate();
-        if(!alive){
-            if(timeAfter > 0) timeAfter--;
+        if (!alive) {
+            if (timeAfter > 0) timeAfter--;
             else remove();
-        }
-        else{
+        } else {
             calculateMove();
             if (timeDelaySetBomb < -7500) timeDelaySetBomb = 0;
             else timeDelaySetBomb--;
@@ -202,9 +201,9 @@ public class Bomber extends Character {
         _bombs.add(b);
     }
 
-    public static Entity bombAt(int xUnit, int yUnit){
-        for(int i = 0; i < _bombs.size(); i++){
-            if(_bombs.get(i).getxUnit() == xUnit && _bombs.get(i).getyUnit() == yUnit){
+    public static Entity bombAt(int xUnit, int yUnit) {
+        for (int i = 0; i < _bombs.size(); i++) {
+            if (_bombs.get(i).getxUnit() == xUnit && _bombs.get(i).getyUnit() == yUnit) {
                 return _bombs.get(i);
             }
         }

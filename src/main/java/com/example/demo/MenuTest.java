@@ -29,12 +29,13 @@ import java.util.List;
 public class MenuTest extends Game {
     private Stage stage;
 
-    protected boolean bool= true;
+    protected boolean bool = true;
 
-    protected boolean bool1= true;
-    protected int count=1;
+    protected boolean bool1 = true;
+    protected int count = 1;
 
     protected javafx.event.ActionEvent test1;
+
     public void Test(javafx.event.ActionEvent test) throws FileNotFoundException {
         stage = (Stage) ((Node) test.getSource()).getScene().getWindow();
         canvas = new Canvas(Sprite.SCALED_SIZE * Game.WIDTH, Sprite.SCALED_SIZE * Game.HEIGHT);
@@ -57,7 +58,7 @@ public class MenuTest extends Game {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if(Game.getBomber() == null && bool == true){
+                if (Game.getBomber() == null && bool == true) {
                     Sound.background.stop();
                     Sound.track10.stop();
                     Sound.win.setCycleCount(MediaPlayer.INDEFINITE);
@@ -75,8 +76,8 @@ public class MenuTest extends Game {
                     stage.show();
                     this.stop();
                 }
-                if(count==2 && bool1==true) {
-                    if (entities.size()==1 && entities.get(0) instanceof Bomber) {
+                if (count == 2 && bool1 == true) {
+                    if (entities.size() == 1 && entities.get(0) instanceof Bomber) {
                         Sound.background.stop();
                         Sound.track10.stop();
                         Sound.win.setCycleCount(MediaPlayer.INDEFINITE);
@@ -106,9 +107,10 @@ public class MenuTest extends Game {
                         entities.add(extraEntity.get(i));
                         extraEntity.remove(i);
                     }
-                    ;} else{
-                    int i = count+1;
-                    if(i<=2){
+                    ;
+                } else {
+                    int i = count + 1;
+                    if (i <= 2) {
                         count++;
                         try {
                             nextLevel();
@@ -120,34 +122,37 @@ public class MenuTest extends Game {
                         }
                     }
                 }
-                }
+            }
         };
         timer.start();
     }
 
 
-    public void nextLevel(){
+    public void nextLevel() {
         stillObjects.clear();
         entities.clear();
-        Portal.isStepOn=false;
+        Portal.isStepOn = false;
     }
-    public void Control(javafx.event.ActionEvent controlEvent) throws IOException{
-            stage = (Stage) ((Node) controlEvent.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/getControl.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+
+    public void Control(javafx.event.ActionEvent controlEvent) throws IOException {
+        stage = (Stage) ((Node) controlEvent.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/getControl.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
-    public void Exit(javafx.event.ActionEvent actionEvent){
+
+    public void Exit(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
+
     public void createMap() throws FileNotFoundException {
         List<String> str = new ArrayList<>();
 
         try {
-            FileReader fr = new FileReader("Bomberman/src/main/resources/levels/Level"+count+".txt");
+            FileReader fr = new FileReader("Bomberman/src/main/resources/levels/Level" + count + ".txt");
             BufferedReader br = new BufferedReader(fr);
 
             String line = "";
@@ -164,7 +169,7 @@ public class MenuTest extends Game {
                         case 'p':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj= new Bomber(j,i,Sprite.player_right);
+                            obj = new Bomber(j, i, Sprite.player_right);
                             entities.add(obj);
                             break;
                         case '#':
@@ -176,63 +181,63 @@ public class MenuTest extends Game {
                             stillObjects.add(obj);
                             break;
                         case '*':
-                            obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new Grass(j, i, Sprite.grass));
+                            obj = new LayerEntity(j, i, new Brick(j, i, Sprite.brick), new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
                             break;
-                        case 'b' :
-                            obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new BoomItem(j, i, Sprite.powerup_bombs), new Grass(j, i, Sprite.grass));
+                        case 'b':
+                            obj = new LayerEntity(j, i, new Brick(j, i, Sprite.brick), new BoomItem(j, i, Sprite.powerup_bombs), new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
                             break;
-                        case 'f' :
-                            obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new FlameItem(j, i, Sprite.powerup_flames), new Grass(j, i, Sprite.grass));
+                        case 'f':
+                            obj = new LayerEntity(j, i, new Brick(j, i, Sprite.brick), new FlameItem(j, i, Sprite.powerup_flames), new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
                             break;
-                        case 's' :
-                            obj = new LayerEntity(j,i, new Brick(j, i, Sprite.brick), new SpeedItem(j, i, Sprite.powerup_speed), new Grass(j, i, Sprite.grass));
+                        case 's':
+                            obj = new LayerEntity(j, i, new Brick(j, i, Sprite.brick), new SpeedItem(j, i, Sprite.powerup_speed), new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
                             break;
-                        case 'x' :
-                            obj = new LayerEntity(j,i,new Brick(j,i,Sprite.brick), new Portal(j,i,Sprite.portal), new Grass(j,i,Sprite.grass));
+                        case 'x':
+                            obj = new LayerEntity(j, i, new Brick(j, i, Sprite.brick), new Portal(j, i, Sprite.portal), new Grass(j, i, Sprite.grass));
                             stillObjects.add(obj);
                             break;
                         case '1':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Balloon(j ,i, Sprite.balloom_right1,1,100);
+                            obj = new Balloon(j, i, Sprite.balloom_right1, 1, 100);
                             entities.add(obj);
                             break;
                         case '2':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Oneal(j ,i, Sprite.oneal_left1,1,100);
+                            obj = new Oneal(j, i, Sprite.oneal_left1, 1, 100);
                             entities.add(obj);
                             break;
                         case '3':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Minvo(j ,i, Sprite.minvo_dead,2,100);
+                            obj = new Minvo(j, i, Sprite.minvo_dead, 2, 100);
                             entities.add(obj);
                             break;
                         case '4':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Kondoria(j ,i, Sprite.kondoria_dead,1,100);
+                            obj = new Kondoria(j, i, Sprite.kondoria_dead, 1, 100);
                             entities.add(obj);
                             break;
                         case '5':
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Doll(j ,i, Sprite.doll_dead,2,100);
+                            obj = new Doll(j, i, Sprite.doll_dead, 2, 100);
                             entities.add(obj);
                             break;
                     }
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Can't load file");
         }
-        for(int i = 1; i < entities.size(); i++){
-            if(entities.get(i) instanceof Doll)  ((Doll) entities.get(i)).setEneMove();
+        for (int i = 1; i < entities.size(); i++) {
+            if (entities.get(i) instanceof Doll) ((Doll) entities.get(i)).setEneMove();
         }
     }
 }

@@ -2,7 +2,6 @@ package com.example.demo.entities.freeze.tile;
 
 import com.example.demo.entities.Entity;
 import com.example.demo.graphics.Sprite;
-import javafx.scene.image.Image;
 
 public class Wall extends Tile {
 

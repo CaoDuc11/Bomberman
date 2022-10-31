@@ -11,25 +11,25 @@ import java.util.ArrayList;
 public class LayerEntity extends Entity {
     public ArrayList<Entity> _entity = new ArrayList<>();
 
-    public LayerEntity(int x, int y, Entity ... entities){
+    public LayerEntity(int x, int y, Entity... entities) {
         super(x, y, entities[0].getImg());
 
-        if(entities[0] instanceof Brick){
+        if (entities[0] instanceof Brick) {
             ((Brick) entities[0]).addBelow(entities[1].getImg());
         }
-        for(int i=0; i < entities.length; i++){
-           _entity.add(entities[i]);
-       }
+        for (int i = 0; i < entities.length; i++) {
+            _entity.add(entities[i]);
+        }
 
     }
 
-    public Entity getTopEntity(){
+    public Entity getTopEntity() {
         return _entity.get(0);
     }
 
-    public void Removed(){
+    public void Removed() {
         Entity top = getTopEntity();
-        if(top.isRemoved()){
+        if (top.isRemoved()) {
             _entity.remove(0);
         }
     }
@@ -40,8 +40,8 @@ public class LayerEntity extends Entity {
     }
 
     @Override
-    public void render(GraphicsContext gc){
-         getTopEntity().render(gc);
+    public void render(GraphicsContext gc) {
+        getTopEntity().render(gc);
     }
 
 

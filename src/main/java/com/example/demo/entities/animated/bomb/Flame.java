@@ -19,26 +19,26 @@ public class Flame extends AnimatedEntity {
 
     @Override
     public boolean collide(Entity e) {
-        if(e instanceof Bomber) ((Bomber) e).kill();
+        if (e instanceof Bomber) ((Bomber) e).kill();
         return true;
     }
 
-    public void ChooseSprite(){
-        switch(type){
+    public void ChooseSprite() {
+        switch (type) {
             case 1:
-                this.sprite = Sprite.movingSprite(Sprite.explosion_vertical_top_last,Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, animate, 120);
+                this.sprite = Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, animate, 120);
                 break;
             case 2:
-                this.sprite = Sprite.movingSprite(Sprite.explosion_horizontal_left_last,Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, animate, 120);
+                this.sprite = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, animate, 120);
                 break;
             case 3:
-                this.sprite = Sprite.movingSprite(Sprite.explosion_horizontal_right_last,Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, animate, 120);
+                this.sprite = Sprite.movingSprite(Sprite.explosion_horizontal_right_last, Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, animate, 120);
                 break;
             case 4:
-                this.sprite = Sprite.movingSprite(Sprite.explosion_vertical_down_last,Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, animate, 120);
+                this.sprite = Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, animate, 120);
                 break;
             case 5:
-                this.sprite = Sprite.movingSprite(Sprite.explosion_vertical,Sprite.explosion_vertical1,Sprite.explosion_vertical2, animate,120);
+                this.sprite = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, animate, 120);
                 break;
             case 6:
                 this.sprite = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate, 120);
@@ -46,6 +46,7 @@ public class Flame extends AnimatedEntity {
         }
 
     }
+
     @Override
     public void update() {
         animate();

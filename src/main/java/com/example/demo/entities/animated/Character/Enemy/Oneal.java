@@ -10,17 +10,19 @@ import java.util.Random;
 public class Oneal extends Enemy {
 
     private Random randomSpeed = new Random();
-    public Oneal(int x, int y, Sprite sprite, double speed, int point){
-        super(x,y,sprite,speed,point);
+
+    public Oneal(int x, int y, Sprite sprite, double speed, int point) {
+        super(x, y, sprite, speed, point);
         enemyMove = new AILowMove(this);
         direction = enemyMove.move();
     }
+
     @Override
     public void chooseSprite() {
         if (this.x % Sprite.SCALED_SIZE == 0 && this.y % Sprite.SCALED_SIZE == 0) {
             this._speed = randomSpeed.nextInt(3);
         }
-        if(alive){
+        if (alive) {
             switch (direction) {
                 case 1:
                 case 2:
@@ -31,9 +33,9 @@ public class Oneal extends Enemy {
                     sprite = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, animate, 60);
                     break;
             }
-        }
-        else {
-            if(timeAfter < 20) sprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animate,120);
+        } else {
+            if (timeAfter < 20)
+                sprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, animate, 120);
             else sprite = Sprite.oneal_dead;
         }
 

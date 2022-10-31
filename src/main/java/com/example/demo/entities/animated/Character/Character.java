@@ -17,21 +17,21 @@ public abstract class Character extends AnimatedEntity {
     }
 
     public void setxUnit() {
-        this.xUnit = ( this.x + Sprite.SCALED_SIZE / 2 ) / Sprite.SCALED_SIZE;
+        this.xUnit = (this.x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
     }
 
     public void setyUnit() {
-        this.yUnit =( this.y + Sprite.SCALED_SIZE / 2 ) / Sprite.SCALED_SIZE;
+        this.yUnit = (this.y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
     }
 
     @Override
-    public int getxUnit(){
+    public int getxUnit() {
         setxUnit();
         return this.xUnit;
     }
 
     @Override
-    public int getyUnit(){
+    public int getyUnit() {
         setyUnit();
         return this.yUnit;
     }
@@ -62,17 +62,18 @@ public abstract class Character extends AnimatedEntity {
 
     /**
      * Kiểm tra xem đối tượng có di chuyển tới vị trí đã tính toán hay không
+     *
      * @param
      * @param
      * @return
      */
 
-    protected int set(int n){
+    protected int set(int n) {
         int check = n / Sprite.SCALED_SIZE;
-        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.75){
+        if (n - check * Sprite.SCALED_SIZE >= Sprite.SCALED_SIZE * 0.75) {
             return (check + 1) * Sprite.SCALED_SIZE;
         }
-        if(n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.25){
+        if (n - check * Sprite.SCALED_SIZE <= Sprite.SCALED_SIZE * 0.25) {
             return check * Sprite.SCALED_SIZE;
         }
 

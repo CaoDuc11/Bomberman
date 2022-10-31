@@ -9,7 +9,7 @@ public abstract class Item extends Tile {
     }
 
     public boolean checkCollide(int x, int y) {
-        return ( this.x - 2 <=  x && this.y - 2 <= y && this.x + 8 >= x && this.y + 8 >= y);
+        return (this.x - 2 <= x && this.y - 2 <= y && this.x + 8 >= x && this.y + 8 >= y);
     }
 }
 

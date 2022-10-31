@@ -17,6 +17,7 @@ public class Brick extends AnimatedEntity {
     protected boolean _destroy = false;
 
     protected Image below;
+
     public Brick(int x, int y, Sprite sprite) {
         super(x, y, sprite);
     }
@@ -24,40 +25,39 @@ public class Brick extends AnimatedEntity {
 
     @Override
     public void update() {
-        if(_destroy){
+        if (_destroy) {
             Sound.destroy.stop();
             Sound.destroy.play();
             animate();
-            if(_timeToDisapear > 0){
+            if (_timeToDisapear > 0) {
                 _timeToDisapear--;
-            }
-            else {
+            } else {
                 remove();
             }
-            if(_timeToDisapear > 0) {
-                this.sprite = Sprite.movingSprite(Sprite.brick_exploded,Sprite.brick_exploded1,Sprite.brick_exploded2,animate,30);
+            if (_timeToDisapear > 0) {
+                this.sprite = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2, animate, 30);
             }
             this.setImg(sprite.getFxImage());
-        }
-        else this.sprite = Sprite.brick;
+        } else this.sprite = Sprite.brick;
     }
 
-    public void addBelow(Image image){
+    public void addBelow(Image image) {
         below = image;
     }
 
     @Override
     public boolean collide(Entity e) {
         // TODO: xử lý khi va chạm với Flame
-        if(e instanceof Flame) destroy();
+        if (e instanceof Flame) destroy();
         return false;
     }
 
     @Override
-    public void render(GraphicsContext gc){
-        gc.drawImage(below,x, y);
+    public void render(GraphicsContext gc) {
+        gc.drawImage(below, x, y);
         gc.drawImage(img, x, y);
     }
+
     private void destroy() {
         _destroy = true;
     }

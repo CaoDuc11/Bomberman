@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class GameOver {
     private Stage stage;
+
     public void Over(javafx.event.ActionEvent over) throws IOException {
         MenuTest Test = new MenuTest();
         Test.Test(over);
