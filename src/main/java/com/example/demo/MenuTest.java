@@ -2,10 +2,7 @@ package com.example.demo;
 
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
-import com.example.demo.entities.animated.Character.Enemy.Balloon;
-import com.example.demo.entities.animated.Character.Enemy.Kondoria;
-import com.example.demo.entities.animated.Character.Enemy.Minvo;
-import com.example.demo.entities.animated.Character.Enemy.Oneal;
+import com.example.demo.entities.animated.Character.Enemy.*;
 import com.example.demo.entities.freeze.tile.Grass;
 import com.example.demo.entities.freeze.tile.items.Portal;
 import com.example.demo.entities.freeze.tile.Wall;
@@ -127,14 +124,7 @@ public class MenuTest extends Game {
         };
         timer.start();
     }
-//    public void Over(javafx.event.ActionEvent over) throws IOException {
-//        stage = (Stage) ((Node) over.getSource()).getScene().getWindow();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
-//        Parent root = loader.load();
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+
 
     public void nextLevel(){
         stillObjects.clear();
@@ -229,11 +219,20 @@ public class MenuTest extends Game {
                             obj = new Kondoria(j ,i, Sprite.kondoria_dead,1,100);
                             entities.add(obj);
                             break;
+                        case '5':
+                            obj = new Grass(j, i, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj = new Doll(j ,i, Sprite.doll_dead,2,100);
+                            entities.add(obj);
+                            break;
                     }
                 }
             }
         } catch (Exception e){
             System.out.println("Can't load file");
+        }
+        for(int i = 1; i < entities.size(); i++){
+            if(entities.get(i) instanceof Doll)  ((Doll) entities.get(i)).setEneMove();
         }
     }
 }

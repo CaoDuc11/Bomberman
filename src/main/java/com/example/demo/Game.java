@@ -155,6 +155,6 @@ public class Game extends Application {
         return null;
     }
     public static Entity getEntityAt(int x, int y) {
-        return stillObjects. get( x + y * WIDTH);
+        return stillObjects.get(x + y * WIDTH);
     }
 }

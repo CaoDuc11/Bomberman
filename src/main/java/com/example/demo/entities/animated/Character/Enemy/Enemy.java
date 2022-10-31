@@ -4,6 +4,7 @@ import com.example.demo.Game;
 import com.example.demo.entities.Entity;
 import com.example.demo.entities.animated.Character.Bomber;
 import com.example.demo.entities.animated.Character.Character;
+import com.example.demo.entities.animated.Character.EneMove.AIHighMove;
 import com.example.demo.entities.animated.Character.EneMove.EnemyMove;
 import com.example.demo.entities.animated.Character.EneMove.NormalMove;
 import com.example.demo.entities.animated.bomb.Bomb;
@@ -117,6 +118,7 @@ public abstract class Enemy extends Character {
         Entity e = Game.getEntity(i, j, this);
         return e.collide(this);
     }
+
 
     public abstract void chooseSprite();
 }
